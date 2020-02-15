@@ -1,0 +1,20 @@
+Name a number: forty-two.
+She thought —a hundred sheep after— I am not getting any sleep.
+A thousand words are worth less than a picture, but even a
+ hundred well-said words will get you far enough.
+Zero times one million thirty-three thousand nine hundred and seven dot six is still zero.
+The words of general 栗林 were clear, we were to attack on the fourth day with
+a hundred thousand-man troop.
+One hundred and two thousand may be ambiguous, is it a hundred thousand plus two thousand
+or one hundred and then two thousand?
+Left associative greediness produce some effect:
+    "a hundred and two thousand forty-two" versus "a hundred, and two thousand forty-two".
+a thousand eight hundred and eighty-three
+a hundred and fifty-four
+a hundred thousand five hundred and sixteen
+a million   ninety thousand   seven hundred   and eighty-one
+a hundred million four hundred and six thousand eight hundred and fifty-seven
+A
+hundred
+and
+two.

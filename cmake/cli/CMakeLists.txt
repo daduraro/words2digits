@@ -8,6 +8,7 @@ set(CLI_HEADERS
 
 set(CLI_SOURCES
     ${CLI_SOURCE_DIR}/main.cpp
+    ${CLI_SOURCE_DIR}/grammar.cpp
 )
 
 set(CLI_NAME words2digits)
@@ -23,7 +24,7 @@ PRIVATE
     $<BUILD_INTERFACE:${CLI_INCLUDE_DIR}>
 )
 
-target_link_libraries(${CLI_NAME} PRIVATE corelib)
+#target_link_libraries(${CLI_NAME} PRIVATE corelib)
 
 if (MSVC)
     target_compile_options(${CLI_NAME}

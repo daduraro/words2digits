@@ -10,8 +10,6 @@ macro(package_add_test TESTNAME)
     set(TEST_SOURCES ${TEST_SOURCES} PARENT_SCOPE) # this is the actual TEST_SOURCES, only if just 1 scope deeper (function/subdirectories scope)
 endmacro()
 
-# add_subdirectory(baselib)
-add_subdirectory(corelib)
 add_subdirectory(cli)
 
 option(W2D_TESTS "Build the tests" ON)
