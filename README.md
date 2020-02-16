@@ -129,6 +129,29 @@ Left associative greediness produce some effect:
 102.
 ```
 
+## Program architecture
+
+The program is split into two main components, a tokenizer and a grammar parser. As the parsed grammar is an LL(k) grammar, a straight-forward recursive descent parser has been implemented. This means that, at a high level, this parser only requires that, given a specific token, which is the next token in the stream.
+
+As some of the text must be replaced when processed, the tokenizer performs three basic roles:
+- Splits the input text into tokens of different categories (text, spaces and other).
+- Stores the processed tokens in a transient state in which they might be modified (replaced).
+- Dumps the tokens in the same order that they were read from the transient state to an output stream of characters.
+
+For more details see the code [documentation](https://daduraro.github.io/words2digits/).
+
+## Documentation
+
+There are two kind of generated reports:
+
+- [Doxygen generated documentation](https://daduraro.github.io/words2digits/), that can be built from sources directly from a CMake target.
+
+- [gcovr test coverage report](https://daduraro.github.io/words2digits/coverage), that can be generated, after executing the instrumented unittest (see [How to build](#how-to-build)), using the command:
+
+```sh
+gcovr -r source/cli/ -e '.*test.*' build/  --html --html-details -o coverage/index.html
+```
+
 ## Limitations
 
 ### a) Other textual number representations
