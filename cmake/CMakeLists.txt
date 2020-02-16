@@ -12,7 +12,7 @@ endmacro()
 
 add_subdirectory(cli)
 
-option(W2D_TESTS "Build the tests" ON)
+option(W2D_TESTS "Build the tests" OFF)
 if (W2D_TESTS)
 #    enable_testing()
    add_subdirectory(tests)

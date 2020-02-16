@@ -31,6 +31,9 @@ token_stream_t::operator bool() const noexcept {
 }
 
 void token_stream_t::replace(token_sequence_t seq, std::string value, bool preserve_newline) noexcept {
+    // TODO probably replace should be replace_and_commit, as after a replace the only valid option
+    //      is to commit the changes
+
     // find whether we should place a newline at the beginning of value
     bool newline = false;
     if (preserve_newline) {
@@ -119,6 +122,7 @@ const token_class_e& token_stream_t::token_class(std::size_t id) const noexcept 
 }
 
 token_sequence_t token_stream_t::new_sequence(token_class_e filter) noexcept {
+    assert(filter != token_class_e::replaced);
     auto id = first_;
     token_class_e c = token_class(id);
     while (c != token_class_e::end && c != filter) {
@@ -185,6 +189,7 @@ void token_stream_t::get_token() noexcept {
 token_id_t token_stream_t::next_token(token_id_t id, bool skip_other, bool skip_ws) noexcept
 {
     assert(token_in_window(id));
+    if (token_class(id) == token_class_e::end) return id;
     while (true) {
         ++id;
         if (!token_in_window(id)) get_token();

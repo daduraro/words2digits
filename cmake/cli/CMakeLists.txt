@@ -13,6 +13,11 @@ set(CLI_SOURCES
     ${CLI_SOURCE_DIR}/token_stream.cpp
 )
 
+package_add_test(base, ${CLI_SOURCE_DIR}/digitize.cpp ${CLI_SOURCE_DIR}/grammar.cpp ${CLI_SOURCE_DIR}/token_stream.cpp)
+package_add_test(token_stream, ${CLI_TEST_DIR}/test_token_stream.cpp)
+package_add_test(grammar, ${CLI_TEST_DIR}/test_grammar.cpp)
+package_add_test(run, ${CLI_TEST_DIR}/test_run.cpp)
+
 set(CLI_NAME words2digits)
 add_executable(${CLI_NAME} ${CLI_SOURCES})
 

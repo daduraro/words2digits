@@ -1,5 +1,8 @@
 #include "digitize.h"
 
+#include <iostream>
+
 int main(int argc, char** argv) {
-    return run(argc, argv);
+    std::ios::sync_with_stdio(false);
+    return run(argc, argv, std::cin, std::cout, std::cerr);
 }

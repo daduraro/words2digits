@@ -121,6 +121,7 @@ public:
      * Create a new token sequence.
      *
      * @param filter The token category of the single token of the new token sequence.
+     *               It must be either alpha, other, space or end.
      * @returns A token sequence with a single token, which is the first non-committed
      *      token of category `filter`, or the end token if none other exists.
      */
@@ -173,9 +174,9 @@ private:
  * Finally, a token sequence is only meaningful when it has an associated token sequence
  * and its semantics are those of a view (e.g. string_view, span, ...).
  * A token sequence will get invalidated if any of its referring tokens become committed and,
- * in particular, the current commit cannot be accessed if it has been committed.
+ * in particular, the current sequence cannot be accessed if it has been committed.
  *
- * @note An unassociated token sequence can be constructed, but accessing to any of its member
+ * @note An invalid token sequence can be constructed, but accessing to any of its member
  *       function, except from operator bool() and the copy/assignment constructors,
  *       is a violation of their preconditions.
  */
@@ -184,10 +185,10 @@ class token_sequence_t {
 public:
     // TODO once optional is implemented, remove default constructor and operator bool
 
-    /// Constructs an unassociated token sequence.
+    /// Constructs an invalid token sequence.
     token_sequence_t() noexcept : stream_(nullptr), start_(), curr_() {};
 
-    /// Checks if the token sequence have a token stream associated.
+    /// Checks if the token sequence is valid.
     explicit operator bool() const noexcept {
         return stream_ != nullptr;
     }
@@ -214,6 +215,7 @@ public:
      * All tokens within current token and next one will be added
      * to the sequence.
      *
+     * @pre Current token of sequence is valid (neither committed nor unfetched).
      * @param skip_other If true, the next current token can be of class other.
      * @param skip_ws If true, the next current token can be of class space.
      */

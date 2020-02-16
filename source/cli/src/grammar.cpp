@@ -65,7 +65,7 @@ namespace {
     match_t rule_Below100(token_sequence_t seq) noexcept
     {
         match_t m;
-        if (m = rule_SecDig(seq)) {
+        if ((m = rule_SecDig(seq))) {
             // be greedy and try to match '-' Digit,
             // if not, we need to report current match
             token_sequence_t new_seq = m.seq;
@@ -74,11 +74,11 @@ namespace {
 
             match_t m2;
             new_seq.next_token();
-            if (m2 = rule_Digit(new_seq)) return { m2.seq, m.num + m2.num };
+            if ((m2 = rule_Digit(new_seq))) return { m2.seq, m.num + m2.num };
 
             return m;
         }
-        if (m = rule_Teens(seq)) return m;
+        if ((m = rule_Teens(seq))) return m;
         return rule_Digit(seq);
     }
 
@@ -99,7 +99,7 @@ namespace {
 
         seq.next_token();
         match_t m2;
-        if (m2 = rule_Below100(seq)) return { m2.seq, 100 + m2.num };
+        if ((m2 = rule_Below100(seq))) return { m2.seq, 100 + m2.num };
 
         return m;
     }
@@ -114,12 +114,12 @@ namespace {
         //          try to match Below100, and if the number is below 10
         //          try to match HundredSfx
         match_t m;
-        if (m = rule_Below100(seq)) {
+        if ((m = rule_Below100(seq))) {
             if (m.num < 10) {
                 match_t m2;
                 seq = m.seq;
                 seq.next_token();
-                if (m2 = rule_HundredSfx(seq)) {
+                if ((m2 = rule_HundredSfx(seq))) {
                     return { m2.seq, m.num * 100 + (m2.num - 100) };
                 }
             }
@@ -141,7 +141,7 @@ namespace {
         // be greedy and try to match Hundreds
         seq.next_token();
         match_t m2;
-        if (m2 = rule_Hundreds(seq)) return { m2.seq, 1000 + m2.num };
+        if ((m2 = rule_Hundreds(seq))) return { m2.seq, 1000 + m2.num };
 
         return m;
     }
@@ -153,13 +153,13 @@ namespace {
     match_t rule_Thousands(token_sequence_t seq) noexcept
     {
         match_t m;
-        if (m = rule_Hundreds(seq)) {
+        if ((m = rule_Hundreds(seq))) {
 
             // try to match ThousandSfx
             seq = m.seq;
             seq.next_token();
             match_t m2;
-            if (m2 = rule_ThousandSfx(seq)) {
+            if ((m2 = rule_ThousandSfx(seq))) {
                 return { m2.seq, 1000 * m.num + (m2.num-1000) };
             }
 
@@ -181,7 +181,7 @@ namespace {
         // be greedy and try to match Hundreds
         seq.next_token();
         match_t m2;
-        if (m2 = rule_Thousands(seq)) return { m2.seq, 1000000 + m2.num };
+        if ((m2 = rule_Thousands(seq))) return { m2.seq, 1000000 + m2.num };
 
         return m;
     }
@@ -193,13 +193,13 @@ namespace {
     match_t rule_Millions(token_sequence_t seq) noexcept
     {
         match_t m;
-        if (m = rule_Thousands(seq)) {
+        if ((m = rule_Thousands(seq))) {
 
             // try to match MillionSfx
             seq = m.seq;
             seq.next_token();
             match_t m2;
-            if (m2 = rule_MillionSfx(seq)) {
+            if ((m2 = rule_MillionSfx(seq))) {
                 return { m2.seq, 1000000 * m.num + (m2.num-1000000) };
             }
 
@@ -221,19 +221,19 @@ namespace {
         // treat all the 'a hundred' cases
         // 'a ' HundredSfx | 'a hundred ' ThousandSfx | 'a hundred ' MillionSfx | 'a ' ThousandSfx | 'a ' MillionSfx
         match_t m;
-        if (m = rule_HundredSfx(seq)) {
+        if ((m = rule_HundredSfx(seq))) {
             if (m.num == 100) {
                 // might be 'a hundred thousand' / 'a hundred million' / ...
                 seq = m.seq;
                 seq.next_token();
 
                 match_t m2;
-                if (m2 = rule_ThousandSfx(seq)) return { m2.seq, (m2.num-1000) + 100000 };
-                if (m2 = rule_MillionSfx(seq)) return { m2.seq, (m2.num-1000000) + 100000000 };
+                if ((m2 = rule_ThousandSfx(seq))) return { m2.seq, (m2.num-1000) + 100000 };
+                if ((m2 = rule_MillionSfx(seq))) return { m2.seq, (m2.num-1000000) + 100000000 };
             }
             return m;
         }
-        if (m = rule_ThousandSfx(seq)) return m;
+        if ((m = rule_ThousandSfx(seq))) return m;
         return rule_MillionSfx(seq);
     }
 }
@@ -243,6 +243,6 @@ match_t match_cardinal_number(token_sequence_t seq) noexcept
     // CardNum -> 'zero' | Millions | AValue
     match_t m;
     if (seq.curr() == "zero") return { seq, 0 };
-    else if (m = rule_AValue(seq)) return m;
+    else if ((m = rule_AValue(seq))) return m;
     return rule_Millions(seq);
 }

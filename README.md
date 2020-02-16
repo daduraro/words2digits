@@ -7,14 +7,14 @@ Fundamentally, the textual numbers are those recognized by the following context
 ```c
 CardNum      -> 'zero' | Millions | AValue
 
-Digit        -> 'one' | 'two' | 'three' | 'four' | 'five'
-                | 'six' | 'seven' | 'eight' | 'nine'
-Teens        -> 'ten' | 'eleven' | 'twelve'  | 'thirteen'
-                | 'fourteen' | 'fifteen' | 'sixteen'
-                | 'seventeen' | 'eighteen' | 'nineteen'
-SecDig       -> 'twenty' | 'thirty' | 'forty' | 'fifty'
-                 | 'sixty' | 'seventy' | 'eighty'
-                 | 'ninety'
+Digit        -> 'one' | 'two' | 'three' | 'four' | 'five' |
+                'six' | 'seven' | 'eight' | 'nine'
+Teens        -> 'ten' | 'eleven' | 'twelve'  | 'thirteen' |
+                'fourteen' | 'fifteen' | 'sixteen' |
+                'seventeen' | 'eighteen' | 'nineteen'
+SecDig       -> 'twenty' | 'thirty' | 'forty' | 'fifty' |
+                'sixty' | 'seventy' | 'eighty' |
+                'ninety'
 Below100     -> Digit | Teens | SecDig | SecDig '-' Digit
 
 HundredSfx   -> 'hundred' | 'hundred and ' Below100
@@ -26,9 +26,9 @@ Thousands    -> Hundreds | Hundreds ' ' ThousandSfx
 MillionSfx   -> 'million' | 'million ' Thousands
 Millions     -> Thousands | Thousands ' ' MillionSfx
 
-AValue       -> 'a ' HundredSfx
-                | 'a ' ThousandSfx | 'a hundred ' ThousandSfx
-                | 'a ' MillionSfx  | 'a hundred ' MillionSfx
+AValue       -> 'a ' HundredSfx |
+                'a ' ThousandSfx | 'a hundred ' ThousandSfx |
+                'a ' MillionSfx  | 'a hundred ' MillionSfx
 ```
 
 Which recognizes words such as
@@ -60,8 +60,13 @@ cmake ..
 
 The following cache variables are added
 ```
-W2D_BUILD_DOC  whether to build the doxygen docs
-W2D_TESTS      whether to build the test files
+VARIABLE        DEFAULT     EXPLANATION
+W2D_BUILD_DOC   ON          whether to build the Doxygen docs, fails
+                            gracefuly if Doxygen is not found
+W2D_TESTS       OFF         whether to build the test files, requires GTest
+                            submodule initialized
+W2D_COVERAGE    OFF         whether to instrument unittest for coverage, only
+                            affects when compiling with gcc (requires gcov)
 ```
 
 For the tests, this project uses [GTest](https://github.com/google/googletest), which is present as a Git submodule. Just invoke
@@ -138,4 +143,9 @@ Currently, only UTF-8 / ASCII encodings are supported. See Unicode support limit
 
 ### c) Unicode support
 
-As all the symbols of the current grammar can be represented as single ASCII/UTF-8 bytes, this first version makes some assumptions on the tokenization. This has the unfortunate effect that multi-byte code points are incorrectly classified as "other", regardless of their actual classification. Regrettably, in a lot of places in the C++ Standard Library it is assumed a single character represent a single code point (see most of the [\<locale\>](https://en.cppreference.com/w/cpp/header/locale)), which is false for variable-length encodings such as UTF-8 or UTF-16. Adding support for languages whose textual numbers representations are not formed by single-byte code points of UTF-8 would require moving the internal character representations to `char16_t` or `char32_t`, or even using some specialized libraries such as [ICU](http://site.icu-project.org/).
+As all the symbols of the current grammar can be represented as single ASCII/UTF-8 bytes, this first version makes some assumptions on the tokenization. This has the unfortunate effect that multi-byte code points are incorrectly classified as "other", regardless of their actual classification. Regrettably, in a lot of places in the C++ Standard Library it is assumed a single character represent a single code point (see the classification functions in [\<locale\>](https://en.cppreference.com/w/cpp/header/locale)), which is false for variable-length encodings such as UTF-8 or UTF-16. Adding support for languages whose textual numbers representations are not formed by single-byte code points of UTF-8 would require moving the internal character representations to `char16_t` or `char32_t`, or even using some specialized libraries such as [ICU](http://site.icu-project.org/).
+
+### d) CRLF / LF from original file is not preserved
+
+As the application might need to write a newline when a textual number spans multiple line, I made the decision to open files in textual format (which do CRLF/LF conversion) for simplicity and to avoid having inconsistent newline symbols.
+

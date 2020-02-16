@@ -41,7 +41,7 @@ namespace {
 
     // TODO change return type to std::optional<args_t> when implementing optional
     /// Parse command arguments to args_t.
-    std::pair<bool, args_t> parse_args(int argc, char** argv) noexcept
+    std::pair<bool, args_t> parse_args(int argc, const char** argv, std::ostream& err) noexcept
     {
         std::vector<std::string> args(std::next(argv), std::next(argv, argc));
 
@@ -61,7 +61,7 @@ namespace {
         for (auto& arg : args) {
             if (arg[0] != '-' || dd) {
                 if (outfile.first) {
-                    std::cerr << "ERROR: too many arguments provided" << std::endl;
+                    err << "ERROR: too many arguments provided" << std::endl;
                     return {false, {}};
                 }
                 if (infile.first) outfile = { true, std::move(arg) };
@@ -84,7 +84,7 @@ namespace {
                 continue;
             }
 
-            std::cerr << "ERROR: unrecognized command option '" << arg << "'" << std::endl;
+            err << "ERROR: unrecognized command option '" << arg << "'" << std::endl;
             return { false, {} };
         }
 
@@ -111,10 +111,10 @@ void convert(std::istream& is, std::ostream& os) noexcept
     }
 }
 
-int run(int argc, char** argv) noexcept
+int run(int argc, const char** argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept
 {
     // parse arguments
-    auto args = parse_args(argc, argv);
+    auto args = parse_args(argc, argv, err);
     if (!args.first) return 1;
 
     // destructure binding
@@ -126,7 +126,7 @@ int run(int argc, char** argv) noexcept
 
     // show help message if requested
     if (help) {
-        usage(argv[0], std::cout);
+        usage(argv[0], out);
         return 0;
     }
 
@@ -135,9 +135,9 @@ int run(int argc, char** argv) noexcept
     std::ofstream ofobj;
 
     if (infile.first) {
-        ifobj.open(infile.second, std::ios::binary);
+        ifobj.open(infile.second);
         if (!ifobj.good()) {
-            std::cerr << "ERROR could not access '" << infile.second << "'" << std::endl;
+            err << "ERROR could not access '" << infile.second << "'" << std::endl;
             return 1;
         }
     }
@@ -150,12 +150,12 @@ int run(int argc, char** argv) noexcept
         //      In case this was critical, system-dependent APIs should be used.
         std::ifstream test{ outfile.second, std::ios::binary };
         if (test.good() && !force) {
-            std::cerr << "ERROR file '" << outfile.second << "' already exists, use --force to overwrite it" << std::endl;
+            err << "ERROR file '" << outfile.second << "' already exists, use --force to overwrite it" << std::endl;
             return 1;
         }
-        ofobj.open(outfile.second, std::ios::binary);
+        ofobj.open(outfile.second);
         if (!ofobj.good()) {
-            std::cerr << "ERROR could not access '" << outfile.second << "'" << std::endl;
+            err << "ERROR could not access '" << outfile.second << "'" << std::endl;
             return 1;
         }
     }
@@ -165,12 +165,11 @@ int run(int argc, char** argv) noexcept
         convert(ifobj, ofobj);
     }
     else if (ifobj.is_open()) {
-        convert(ifobj, std::cout);
+        convert(ifobj, out);
     }
     else {
-        std::ios::sync_with_stdio(false);
         assert(!ofobj.is_open());
-        convert(std::cin, std::cout);
+        convert(in, out);
     }
 
     return 0;

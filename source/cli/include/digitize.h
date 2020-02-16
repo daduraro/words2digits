@@ -15,6 +15,6 @@ void convert(std::istream& is, std::ostream& os) noexcept;
 /**
  * @brief Main body of the CLI, parses command arguments and invokes convert().
  */
-int run(int argc, char** argv) noexcept;
+int run(int argc, const char** argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept;
 
 #endif // INCLUDE_GUARD__DIGITIZE_H__GUID_2f2d7b62d36544a3bd505f8f5d8a53e2
