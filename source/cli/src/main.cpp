@@ -3,7 +3,6 @@
 
 #include <fstream>
 
-
 void convert(std::istream& is, std::ostream& os)
 {
     std::locale loc("en_US.UTF-8");
@@ -11,17 +10,15 @@ void convert(std::istream& is, std::ostream& os)
     token_stream_t stream(is);
 
     while (stream) {
-        token_sequence_t seq{ stream };
+        token_sequence_t seq = stream.new_sequence();
         auto m = match_cardinal_number(seq);
         if (m) {
-            bool newline = stream.ignore(m.seq.token_id());
-            if (newline) os << "\n";
-            os << m.num;
+            stream.replace(m.seq, std::to_string(m.num));
+            stream.commit(m.seq.curr_id(), os);
         }
         else {
-            stream.write_token(os);
+            stream.commit(seq.curr_id(), os);
         }
-        //stream.skipws(os);
     }
 }
 

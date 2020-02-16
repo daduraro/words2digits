@@ -9,6 +9,7 @@ set(CLI_HEADERS
 set(CLI_SOURCES
     ${CLI_SOURCE_DIR}/main.cpp
     ${CLI_SOURCE_DIR}/grammar.cpp
+    ${CLI_SOURCE_DIR}/token_stream.cpp
 )
 
 set(CLI_NAME words2digits)

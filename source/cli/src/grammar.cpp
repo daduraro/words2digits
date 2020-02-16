@@ -1,10 +1,5 @@
 #include "grammar.h"
 
-/*
-MillionSfx   -> 'million' | 'million ' Thousands
-Millions     -> Thousands | Thousands ' ' MillionSfx
-*/
-
 match_t rule_Digit(token_sequence_t seq) noexcept
 {
     // Digit -> 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine'
@@ -208,7 +203,6 @@ match_t rule_AValue(token_sequence_t seq) noexcept
     }
     if (m = rule_ThousandSfx(seq)) return m;
     return rule_MillionSfx(seq);
-    //return {};
 }
 
 match_t match_cardinal_number(token_sequence_t seq) noexcept
@@ -217,6 +211,5 @@ match_t match_cardinal_number(token_sequence_t seq) noexcept
     match_t m;
     if (seq.curr() == "zero") return { seq, 0 };
     else if (m = rule_AValue(seq)) return m;
-    //return rule_Thousands(seq);
     return rule_Millions(seq);
 }

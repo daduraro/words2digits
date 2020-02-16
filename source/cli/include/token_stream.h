@@ -1,174 +1,131 @@
 #ifndef INCLUDE_GUARD__TOKEN_STREAM_H__GUID_58400c2d0a5b481c8ecbf531a1ab968b
 #define INCLUDE_GUARD__TOKEN_STREAM_H__GUID_58400c2d0a5b481c8ecbf531a1ab968b
 
-#include <iostream>
+#include <iosfwd>
 #include <cassert>
 #include <vector>
 #include <string>
-#include <iomanip>
-#include <locale>
-#include <algorithm>
 #include <iterator>
+
+enum class token_class_e {
+    space,
+    alpha,
+    other,
+    replaced,
+    end
+};
+
+using token_id_t = std::size_t;
 
 class token_sequence_t;
 
+
 class token_stream_t {
-private:
-    enum token_type_e {
-        space,
-        alpha,
-        other
-    };
-
+    friend class token_sequence_t;
 public:
-    token_stream_t(std::istream& is) noexcept : is_(&is) {
-        (*is_) >> std::noskipws;
-    }
+    token_stream_t(std::istream& is) noexcept;
 
-    explicit operator bool() const noexcept {
-        return !tokens_.empty() || is_->good();
-    }
+    bool empty() const noexcept;
 
-    bool ignore(std::size_t n) noexcept {
-        n = std::min<std::size_t>(tokens_.size(), n+1);
-        bool newline = false;
-        for (auto i=0u; i < n; ++i) {
-            if (token_type_[i] == space) {
-                if (std::find(tokens_[i].begin(), tokens_[i].end(), '\n') != tokens_[i].end()) {
-                    newline = true;
-                    break;
-                }
-            }
-        }
+    explicit operator bool() const noexcept;
 
-        tokens_.erase(tokens_.begin(), std::next(tokens_.begin(), n));
-        normalized_tokens_.erase(normalized_tokens_.begin(), std::next(normalized_tokens_.begin(), n));
-        token_type_.erase(token_type_.begin(), std::next(token_type_.begin(), n));
+    void replace(token_sequence_t seq, std::string value, bool preserve_newline = true) noexcept;
 
-        return newline;
-    }
+    void commit(token_id_t id, std::ostream& os) noexcept;
 
-    void write_token(std::ostream& os) noexcept {
-        assert(!tokens_.empty());
-
-        // dump all tokens that are not alpha
-        std::size_t n = 1;
-        for (; n < tokens_.size(); ++n)
-        {
-            if (token_type_[n] == alpha) break;
-        }
-
-        for (std::size_t i = 0; i < n; ++i) os.write(tokens_[i].c_str(), tokens_[i].size());
-
-        tokens_.erase(tokens_.begin(), std::next(tokens_.begin(), n));
-        normalized_tokens_.erase(normalized_tokens_.begin(), std::next(normalized_tokens_.begin(), n));
-        token_type_.erase(token_type_.begin(), std::next(token_type_.begin(), n));
-    }
-
-    const std::string& token(std::size_t id) noexcept {
-        if (id >= tokens_.size()) grow(id);
-        if (id < tokens_.size()) {
-            return token_type_[id] == alpha ? normalized_tokens_[id] : tokens_[id];
-        }
-        return empty_;
-    }
-
-    std::size_t next_nonspace_token_id(std::size_t id) noexcept {
-        ++id;
-        for (; id < tokens_.size(); ++id) {
-            if (token_type_[id] != space) return id;
-        }
-
-        while (grow()) {
-            assert(!tokens_.empty());
-            if (token_type_.back() != space) {
-                return tokens_.size() - 1;
-            }
-        }
-
-        // sentinel id
-        return tokens_.size();
-    }
+    token_sequence_t new_sequence(token_class_e filter = token_class_e::alpha) noexcept;
 
 private:
-    static token_type_e classify_char(char c, const std::locale& loc) noexcept {
-        if (std::isspace(c, loc)) return space;
-        if (std::isalpha(c, loc)) return alpha;
-        return other;
-    }
+    // accessors
+    std::string& token(token_id_t id) noexcept;
+    const std::string& token(token_id_t id) const noexcept;
 
-    bool grow(std::size_t id) noexcept {
-        for (std::size_t i = tokens_.size(); i <= id; ++i) {
-            if (!grow()) return false;
-        }
-        return true;
-    }
+    std::string& token_raw(token_id_t id) noexcept;
+    const std::string& token_raw(token_id_t id) const noexcept;
 
-    bool grow() noexcept {
-        char c;
-        if (!is_->get(c)) return false;
-        auto loc = is_->getloc();
-        auto t = classify_char(c, loc);
+    token_class_e& token_class(token_id_t id) noexcept;
+    const token_class_e& token_class(token_id_t id) const noexcept;
 
-        tokens_.emplace_back();
-        normalized_tokens_.emplace_back();
-        token_type_.push_back(t);
+    bool token_in_window(token_id_t) const noexcept;
+    void get_token() noexcept;
 
-        auto& token = tokens_.back();
-        token.push_back(c);
-
-        // insert next characters until we find one that does not correspond
-        while (is_->get(c)) {
-            if (t != classify_char(c, loc)) {
-                is_->unget();
-                break;
-            }
-            token.push_back(c);
-        }
-
-        if (t == alpha) {
-            auto& normalized_token = normalized_tokens_.back();
-            std::transform(token.begin(), token.end(), std::back_inserter(normalized_token), [&loc](char in){ return std::tolower(in, loc); });
-        }
-
-        return true;
-    }
+    token_id_t next_token(token_id_t id, bool skip_other, bool skip_ws) noexcept;
 
     std::istream* is_;
+    token_id_t first_;
     std::vector<std::string> tokens_;
     std::vector<std::string> normalized_tokens_;
-    std::vector<token_type_e> token_type_;
-    std::string empty_ = "";
+    std::vector<token_class_e> token_type_;
+};
+
+class token_id_iterator_t {
+public:
+    using difference_type = std::ptrdiff_t;
+    using value_type = token_id_t;
+    using pointer = token_id_t;
+    using reference = token_id_t;
+    using iterator_category = std::forward_iterator_tag;
+
+    token_id_iterator_t(token_id_t idx) noexcept : idx_(idx) {}
+    token_id_t operator*() noexcept { return idx_; }
+    token_id_t operator->() noexcept { return idx_; }
+    token_id_iterator_t& operator++() noexcept { ++idx_; return *this; }
+    token_id_iterator_t operator++(int) noexcept { ++idx_; return { idx_ - 1 }; }
+    friend bool operator==(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return lhs.idx_ == rhs.idx_; }
+    friend bool operator!=(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return !(lhs == rhs); }
+    friend bool operator<(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return lhs.idx_ < rhs.idx_; }
+
+private:
+    token_id_t idx_;
 };
 
 class token_sequence_t {
+    friend class token_stream_t;
 public:
     // TODO once optional is implemented, remove default constructor and operator bool
-    token_sequence_t() noexcept : stream_(nullptr), token_id_{} {}
+    token_sequence_t() noexcept : stream_(nullptr), start_(), curr_() {};
     explicit operator bool() const noexcept {
         return stream_ != nullptr;
     }
 
-    token_sequence_t(token_stream_t& stream) noexcept : stream_(&stream), token_id_(0)
-    {
+    // default copy/move constructors/assignment as token_sequence_t
+    // has value type semantics (it is a lightweight view type)
+    token_sequence_t(const token_sequence_t& other) = default;
+    token_sequence_t(token_sequence_t&& other) = default;
+    token_sequence_t& operator=(const token_sequence_t& other) = default;
+    token_sequence_t& operator=(token_sequence_t&& other) = default;
+
+    const std::string& curr() const noexcept {
+        assert(*this);
+        return stream_->token(curr_);
     }
 
-    const std::string& curr() noexcept {
-        assert(stream_ != nullptr);
-        return stream_->token(token_id_);
+    void next_token(bool skip_other = false, bool skip_ws = true) noexcept {
+        curr_ = stream_->next_token(curr_, skip_other, skip_ws);
     }
 
-    void next_token() noexcept {
-        token_id_ = stream_->next_nonspace_token_id(token_id_);
+    token_id_t first_id() const noexcept {
+        return start_;
     }
 
-    std::size_t token_id() noexcept {
-        return token_id_;
+    token_id_t curr_id() const noexcept {
+        return curr_;
+    }
+
+    token_id_iterator_t begin() const noexcept {
+        return { start_ };
+    }
+
+    token_id_iterator_t end() const noexcept {
+        return { curr_ + 1 };
     }
 
 private:
+    token_sequence_t(token_stream_t& stream, token_id_t start, token_id_t curr) noexcept : stream_(&stream), start_(start), curr_(curr) {};
+
     token_stream_t* stream_;
-    std::size_t token_id_;
+    token_id_t start_;
+    token_id_t curr_;
 };
 
 
