@@ -23,7 +23,7 @@ grammar = CFG.fromstring("""
 """)
 
 p = 0.3
-d = 0.9
+d = 0.1
 for i, sentence in enumerate(generate(grammar)):
     if random.uniform(0,1) < p:
         print(''.join(sentence))

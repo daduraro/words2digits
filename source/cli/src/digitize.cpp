@@ -13,6 +13,8 @@
 #include <algorithm>
 
 namespace {
+
+    /// Prints usage/help message.
     void usage(std::string name, std::ostream& os) noexcept {
         auto pos = std::find_if(name.rbegin(), name.rend(), [](char c){ return c == '/' || c == '\\'; });
         name = name.substr(std::distance(pos, name.rend()));
@@ -28,6 +30,7 @@ namespace {
               "<input-file> and <output-file> paths that start with '-' (dash)." << std::endl;
     }
 
+    /// Parsed arguments.
     struct args_t {
         bool help;
         bool force;
@@ -37,6 +40,7 @@ namespace {
     };
 
     // TODO change return type to std::optional<args_t> when implementing optional
+    /// Parse command arguments to args_t.
     std::pair<bool, args_t> parse_args(int argc, char** argv) noexcept
     {
         std::vector<std::string> args(std::next(argv), std::next(argv, argc));
@@ -99,10 +103,10 @@ void convert(std::istream& is, std::ostream& os) noexcept
         auto m = match_cardinal_number(seq);
         if (m) {
             stream.replace(m.seq, std::to_string(m.num));
-            stream.commit(m.seq.curr_id(), os);
+            stream.commit(m.seq, os);
         }
         else {
-            stream.commit(seq.curr_id(), os);
+            stream.commit(seq, os);
         }
     }
 }

@@ -1,9 +1,12 @@
 #include "grammar.h"
 
 namespace {
+    /**
+     * Matches the rule:
+     * Digit -> 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine'
+     */
     match_t rule_Digit(token_sequence_t seq) noexcept
     {
-        // Digit -> 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine'
         const auto& token = seq.curr();
         if (token == "one")         return { seq, 1 };
         else if (token == "two")    return { seq, 2 };
@@ -17,9 +20,12 @@ namespace {
         return {};
     }
 
+    /**
+     * Matches the rule:
+     * Teens -> 'ten' | 'eleven' | 'twelve'  | 'thirteen' | 'fourteen' | 'fifteen' | 'sixteen' | 'seventeen' | 'eighteen' | 'nineteen'
+     */
     match_t rule_Teens(token_sequence_t seq) noexcept
     {
-        // Teens -> 'ten' | 'eleven' | 'twelve'  | 'thirteen' | 'fourteen' | 'fifteen' | 'sixteen' | 'seventeen' | 'eighteen' | 'nineteen'
         const auto& token = seq.curr();
         if (token == "ten")             return { seq, 10 };
         else if (token == "eleven")     return { seq, 11 };
@@ -34,9 +40,12 @@ namespace {
         return {};
     }
 
+    /**
+     * Matches the rule:
+     * SecDig -> 'twenty' | 'thirty' | 'forty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety'
+     */
     match_t rule_SecDig(token_sequence_t seq) noexcept
     {
-        // SecDig -> 'twenty' | 'thirty' | 'forty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety'
         const auto& token = seq.curr();
         if (token == "twenty")          return { seq, 20 };
         else if (token == "thirty")     return { seq, 30 };
@@ -49,9 +58,12 @@ namespace {
         return {};
     }
 
+    /**
+     * Matches the rule:
+     * Below100 -> Digit | Teens | SecDig | SecDig '-' Digit
+     */
     match_t rule_Below100(token_sequence_t seq) noexcept
     {
-        // Below100 -> Digit | Teens | SecDig | SecDig '-' Digit
         match_t m;
         if (m = rule_SecDig(seq)) {
             // be greedy and try to match '-' Digit,
@@ -70,9 +82,12 @@ namespace {
         return rule_Digit(seq);
     }
 
+    /**
+     * Matches the rule:
+     * HundredSfx   -> 'hundred' | 'hundred and ' Below100
+     */
     match_t rule_HundredSfx(token_sequence_t seq) noexcept
     {
-        // HundredSfx   -> 'hundred' | 'hundred and ' Below100
         if (seq.curr() != "hundred") return {};
 
         match_t m{ seq, 100 };
@@ -89,10 +104,12 @@ namespace {
         return m;
     }
 
+    /**
+     * Matches the rule:
+     * Hundreds -> Below100 | Digit ' ' HundredSfx
+     */
     match_t rule_Hundreds(token_sequence_t seq) noexcept
     {
-        // Hundreds -> Below100 | Digit ' ' HundredSfx
-
         // warning: Below100 and Digit share prefix
         //          try to match Below100, and if the number is below 10
         //          try to match HundredSfx
@@ -112,9 +129,12 @@ namespace {
         return {};
     }
 
+    /**
+     * Matches the rule:
+     * ThousandSfx  -> 'thousand' | 'thousand ' Hundreds
+     */
     match_t rule_ThousandSfx(token_sequence_t seq) noexcept
     {
-        // ThousandSfx  -> 'thousand' | 'thousand ' Hundreds
         if (seq.curr() != "thousand") return {};
         match_t m = { seq, 1000 };
 
@@ -126,9 +146,12 @@ namespace {
         return m;
     }
 
+    /**
+     * Matches the rule:
+     * Thousands    -> Hundreds | Hundreds ' ' ThousandSfx
+     */
     match_t rule_Thousands(token_sequence_t seq) noexcept
     {
-        // Thousands    -> Hundreds | Hundreds ' ' ThousandSfx
         match_t m;
         if (m = rule_Hundreds(seq)) {
 
@@ -146,9 +169,12 @@ namespace {
         return {};
     }
 
+    /**
+     * Matches the rule:
+     * MillionSfx   -> 'million' | 'million ' Thousands
+     */
     match_t rule_MillionSfx(token_sequence_t seq) noexcept
     {
-        // MillionSfx   -> 'million' | 'million ' Thousands
         if (seq.curr() != "million") return {};
         match_t m = { seq, 1000000 };
 
@@ -160,9 +186,12 @@ namespace {
         return m;
     }
 
+    /**
+     * Matches the rule:
+     * Millions    -> Thousands | Thousands ' ' MillionSfx
+     */
     match_t rule_Millions(token_sequence_t seq) noexcept
     {
-        // Millions    -> Thousands | Thousands ' ' MillionSfx
         match_t m;
         if (m = rule_Thousands(seq)) {
 
@@ -180,15 +209,17 @@ namespace {
         return {};
     }
 
-
+    /**
+     * Matches the rule:
+     * AValue -> 'a ' HundredSfx | 'a ' ThousandSfx | 'a hundred ' ThousandSfx | 'a ' MillionSfx | 'a hundred ' MillionSfx
+     */
     match_t rule_AValue(token_sequence_t seq) noexcept
     {
-        // AValue -> 'a ' HundredSfx | 'a ' ThousandSfx | 'a hundred ' ThousandSfx | 'a ' MillionSfx | 'a hundred ' MillionSfx
         if (seq.curr() != "a") return {};
         seq.next_token();
 
         // treat all the 'a hundred' cases
-        //'a ' HundredSfx | 'a hundred ' ThousandSfx | 'a hundred ' MillionSfx | 'a ' ThousandSfx | 'a ' MillionSfx
+        // 'a ' HundredSfx | 'a hundred ' ThousandSfx | 'a hundred ' MillionSfx | 'a ' ThousandSfx | 'a ' MillionSfx
         match_t m;
         if (m = rule_HundredSfx(seq)) {
             if (m.num == 100) {

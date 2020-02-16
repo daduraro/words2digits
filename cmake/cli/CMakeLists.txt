@@ -40,3 +40,14 @@ if (MSVC)
         "/Zc:__cplusplus"
     )
 endif()
+
+# documentation
+option(W2D_BUILD_DOC "Build the docs" ON)
+if (W2D_BUILD_DOC)
+    find_package(Doxygen)
+    if (DOXYGEN_FOUND)
+        doxygen_add_docs(doxygen ${CLI_DIR})
+    else()
+        message("Doxygen need to be installed to generate the doxygen documentation")
+    endif()
+endif()

@@ -58,9 +58,10 @@ void token_stream_t::replace(token_sequence_t seq, std::string value, bool prese
     token_raw(seq.first_id()) = std::move(value);
 }
 
-void token_stream_t::commit(token_id_t id, std::ostream& os) noexcept {
+void token_stream_t::commit(token_sequence_t seq, std::ostream& os) noexcept {
     // check if already committed
     //assert(id >= first_);
+    auto id = seq.curr_id();
     if (id < first_) return;
 
     assert(token_in_window(id));
