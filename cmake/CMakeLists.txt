@@ -13,6 +13,7 @@ endmacro()
 add_subdirectory(cli)
 
 option(W2D_TESTS "Build the tests" OFF)
+option(W2D_COVERAGE "For GCC compile tests with gcov" OFF)
 if (W2D_TESTS)
 #    enable_testing()
    add_subdirectory(tests)

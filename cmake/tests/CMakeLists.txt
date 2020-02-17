@@ -31,7 +31,6 @@ set_target_properties(unittest PROPERTIES
 
 get_target_property(CLI_INCLUDE_DIRS words2digits INCLUDE_DIRECTORIES)
 
-option(W2D_COVERAGE "For GCC compile tests with gcov" OFF)
 if (CMAKE_COMPILER_IS_GNUCXX AND W2D_COVERAGE)
     target_compile_options(unittest PUBLIC -fprofile-arcs -ftest-coverage -fPIC)
     target_link_options(unittest PUBLIC -lgcov --coverage)
