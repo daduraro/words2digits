@@ -146,7 +146,7 @@ There are two kind of generated reports:
 
 - [Doxygen generated documentation](https://daduraro.github.io/words2digits/), that can be built from sources directly from a CMake target.
 
-- [gcovr test coverage report](https://daduraro.github.io/words2digits/coverage), that can be generated, after executing the instrumented unittest (see [How to build](#how-to-build)), using the command:
+- [gcovr test coverage report](https://daduraro.github.io/words2digits/coverage/), that can be generated, after executing the instrumented unittest (see [How to build](#how-to-build)), using the command:
 
 ```sh
 gcovr -r source/cli/ -e '.*test.*' build/  --html --html-details -o coverage/index.html
