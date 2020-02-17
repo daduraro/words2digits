@@ -41,7 +41,7 @@ namespace {
 
     // TODO change return type to std::optional<args_t> when implementing optional
     /// Parse command arguments to args_t.
-    std::pair<bool, args_t> parse_args(int argc, const char** argv, std::ostream& err) noexcept
+    std::pair<bool, args_t> parse_args(int argc, char const* const* argv, std::ostream& err) noexcept
     {
         std::vector<std::string> args(std::next(argv), std::next(argv, argc));
 
@@ -111,7 +111,7 @@ void convert(std::istream& is, std::ostream& os) noexcept
     }
 }
 
-int run(int argc, const char** argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept
+int run(int argc, char const* const* argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept
 {
     // parse arguments
     auto args = parse_args(argc, argv, err);
