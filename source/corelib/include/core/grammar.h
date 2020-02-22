@@ -3,8 +3,6 @@
 
 #include "token_stream.h"
 
-#include "absl/types/optional.h"
-
 #include <cstdint>
 
 namespace core {
@@ -12,24 +10,21 @@ namespace core {
     /**
      * @brief A match of the cardinal numbers grammar.
      *
-     * A match is composed both by a token sequence (i.e. which tokens produced a match)
-     * and the corresponding parsed value.
+     * A match is composed both by the number of tokens in the match and the
+     * corresponding parsed value. An empty match is represented by a size of 0.
      */
-    struct match_result_t {
-        token_sequence_t seq;   //!< Token sequence of the match.
-        std::uint64_t num;      //!< Parsed number of the match.
+    struct match_t {
+        /// Returns whether the match is not empty.
+        operator bool() const noexcept { return size != 0; }
+
+        std::uint64_t size; //!< Size of the match in tokens.
+        std::uint64_t num;  //!< Parsed number of the match.
     };
 
-    using match_t = absl::optional<match_result_t>;
-
     /**
-     * @brief Returns if there is a textual number at current token of `seq`.
+     * @brief Returns if there is a textual number at current token of `it`.
      *
-     * Starting by the current token of the token sequence `seq`, tries
-     * to match a textual number.
-     * Any token before the current one in `seq` is not analyzed and
-     * the final matched sequence will contain them.
-     *
+     * Starting by the current token `it`, tries to match a textual number.
      * This function analyzes the following grammar:
      *
      *     CardNum      -> 'zero' | Millions | AValue
@@ -45,16 +40,15 @@ namespace core {
      *     Millions     -> Thousands | Thousands ' ' MillionSfx
      *     AValue       -> 'a ' HundredSfx | 'a ' ThousandSfx | 'a hundred ' ThousandSfx | 'a ' MillionSfx | 'a hundred ' MillionSfx
      *
-     * Where a whitespace represent a space token, see token_sequence_t.
+     * Where a whitespace represent a space token, see token_category_enum_t.
      *
-     * @note This function will call seq.next_token(), which have some side-effects
-    *        on the referred token_sequence_t (namely, it may extract more tokens).
+     * @note This function will increment the iterator, which have some side-effects
+    *        on the referred token_sequence_t.
     *
-    * @param seq The token sequence from which the algorithm will try
-    *            to match from its current token.
-    * @returns nullopt no match occurred, a match_t otherwise.
+    * @param it The token from which the algorithm will try to match a textual number.
+    * @returns An empty match (size=0) if no match occurred, the actual match otherwise.
     */
-    match_t match_cardinal_number(token_sequence_t seq) noexcept;
+    match_t match_cardinal_number(forward_token_iterator_t it) noexcept;
 
 }
 

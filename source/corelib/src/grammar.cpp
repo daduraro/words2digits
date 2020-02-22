@@ -7,202 +7,178 @@ namespace {
      * Matches the rule:
      * Digit -> 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine'
      */
-    match_t rule_Digit(token_sequence_t seq) noexcept
+    match_t rule_Digit(forward_token_iterator_t it) noexcept
     {
-        const auto& token = seq.curr();
-        if (token == "one")         return match_result_t{ seq, 1 };
-        else if (token == "two")    return match_result_t{ seq, 2 };
-        else if (token == "three")  return match_result_t{ seq, 3 };
-        else if (token == "four")   return match_result_t{ seq, 4 };
-        else if (token == "five")   return match_result_t{ seq, 5 };
-        else if (token == "six")    return match_result_t{ seq, 6 };
-        else if (token == "seven")  return match_result_t{ seq, 7 };
-        else if (token == "eight")  return match_result_t{ seq, 8 };
-        else if (token == "nine")   return match_result_t{ seq, 9 };
-        return absl::nullopt;
+        const auto& token = it->str();
+        if (token == "one")         return { 1, 1 };
+        else if (token == "two")    return { 1, 2 };
+        else if (token == "three")  return { 1, 3 };
+        else if (token == "four")   return { 1, 4 };
+        else if (token == "five")   return { 1, 5 };
+        else if (token == "six")    return { 1, 6 };
+        else if (token == "seven")  return { 1, 7 };
+        else if (token == "eight")  return { 1, 8 };
+        else if (token == "nine")   return { 1, 9 };
+        return {};
     }
 
     /**
      * Matches the rule:
      * Teens -> 'ten' | 'eleven' | 'twelve'  | 'thirteen' | 'fourteen' | 'fifteen' | 'sixteen' | 'seventeen' | 'eighteen' | 'nineteen'
      */
-    match_t rule_Teens(token_sequence_t seq) noexcept
+    match_t rule_Teens(forward_token_iterator_t it) noexcept
     {
-        const auto& token = seq.curr();
-        if (token == "ten")             return match_result_t{ seq, 10 };
-        else if (token == "eleven")     return match_result_t{ seq, 11 };
-        else if (token == "twelve")     return match_result_t{ seq, 12 };
-        else if (token == "thirteen")   return match_result_t{ seq, 13 };
-        else if (token == "fifteen")    return match_result_t{ seq, 14 };
-        else if (token == "fourteen")   return match_result_t{ seq, 15 };
-        else if (token == "sixteen")    return match_result_t{ seq, 16 };
-        else if (token == "seventeen")  return match_result_t{ seq, 17 };
-        else if (token == "eighteen")   return match_result_t{ seq, 18 };
-        else if (token == "nineteen")   return match_result_t{ seq, 19 };
-        return absl::nullopt;
+        const auto& token = it->str();
+        if (token == "ten")             return { 1, 10 };
+        else if (token == "eleven")     return { 1, 11 };
+        else if (token == "twelve")     return { 1, 12 };
+        else if (token == "thirteen")   return { 1, 13 };
+        else if (token == "fifteen")    return { 1, 14 };
+        else if (token == "fourteen")   return { 1, 15 };
+        else if (token == "sixteen")    return { 1, 16 };
+        else if (token == "seventeen")  return { 1, 17 };
+        else if (token == "eighteen")   return { 1, 18 };
+        else if (token == "nineteen")   return { 1, 19 };
+        return {};
     }
 
     /**
      * Matches the rule:
      * SecDig -> 'twenty' | 'thirty' | 'forty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety'
      */
-    match_t rule_SecDig(token_sequence_t seq) noexcept
+    match_t rule_SecDig(forward_token_iterator_t it) noexcept
     {
-        const auto& token = seq.curr();
-        if (token == "twenty")          return match_result_t{ seq, 20 };
-        else if (token == "thirty")     return match_result_t{ seq, 30 };
-        else if (token == "forty")      return match_result_t{ seq, 40 };
-        else if (token == "fifty")      return match_result_t{ seq, 50 };
-        else if (token == "sixty")      return match_result_t{ seq, 60 };
-        else if (token == "seventy")    return match_result_t{ seq, 70 };
-        else if (token == "eighty")     return match_result_t{ seq, 80 };
-        else if (token == "ninety")     return match_result_t{ seq, 90 };
-        return absl::nullopt;
+        const auto& token = it->str();
+        if (token == "twenty")          return { 1, 20 };
+        else if (token == "thirty")     return { 1, 30 };
+        else if (token == "forty")      return { 1, 40 };
+        else if (token == "fifty")      return { 1, 50 };
+        else if (token == "sixty")      return { 1, 60 };
+        else if (token == "seventy")    return { 1, 70 };
+        else if (token == "eighty")     return { 1, 80 };
+        else if (token == "ninety")     return { 1, 90 };
+        return {};
     }
 
     /**
      * Matches the rule:
      * Below100 -> Digit | Teens | SecDig | SecDig '-' Digit
      */
-    match_t rule_Below100(token_sequence_t seq) noexcept
+    match_t rule_Below100(forward_token_iterator_t start) noexcept
     {
         match_t m;
-        if ((m = rule_SecDig(seq))) {
+        if ((m = rule_SecDig(start))) {
             // be greedy and try to match '-' Digit,
             // if not, we need to report current match
-            token_sequence_t new_seq = m->seq;
-            new_seq.next_token();
-            if (new_seq.curr() != "-") return m;
+            auto it = start + m.size;
 
-            match_t m2;
-            new_seq.next_token();
-            if ((m2 = rule_Digit(new_seq))) return match_result_t{ m2->seq, m->num + m2->num };
+            if (it->str() != "-") return m;
+            ++it;
+
+            match_t digit;
+            if ((digit = rule_Digit(it))) return { m.size + 1 + digit.size, m.num + digit.num };
             return m;
         }
-        if ((m = rule_Teens(seq))) return m;
-        return rule_Digit(seq);
+        if ((m = rule_Teens(start))) return m;
+        return rule_Digit(start);
     }
 
     /**
      * Matches the rule:
-     * HundredSfx   -> 'hundred' | 'hundred and ' Below100
+     * HundredSfx   -> 'hundred' | 'hundred' Space 'and' Space Below100
      */
-    match_t rule_HundredSfx(token_sequence_t seq) noexcept
+    match_t rule_HundredSfx(forward_token_iterator_t it) noexcept
     {
-        if (seq.curr() != "hundred") return absl::nullopt;
+        if (it->str() != "hundred") return {};
 
-        match_t m = match_result_t{ seq, 100 };
+        match_t m = { 1, 100 };
+        ++it;
 
-        // be greedy and try to match 'and' Below100,
+        // be greedy and try to match Space 'and' Space Below100,
         // however, if cannot match, return current match
-        seq.next_token();
-        if (seq.curr() != "and") return m;
+        if (!it->is_space()) return m;
+        ++it;
 
-        seq.next_token();
-        match_t m2;
-        if ((m2 = rule_Below100(seq))) return match_result_t{ m2->seq, 100 + m2->num };
+        if (it->str() != "and") return m;
+        ++it;
+
+        if (!it->is_space()) return m;
+        ++it;
+
+        match_t inner_match;
+        if ((inner_match = rule_Below100(it))) return { inner_match.size + m.size + 3, 100 + inner_match.num };
 
         return m;
     }
 
     /**
      * Matches the rule:
-     * Hundreds -> Below100 | Digit ' ' HundredSfx
+     * Hundreds -> Below100 | Digit Space HundredSfx
      */
-    match_t rule_Hundreds(token_sequence_t seq) noexcept
+    match_t rule_Hundreds(forward_token_iterator_t it) noexcept
     {
         // warning: Below100 and Digit share prefix
         //          try to match Below100, and if the number is below 10
         //          try to match HundredSfx
         match_t m;
-        if ((m = rule_Below100(seq))) {
-            if (m->num < 10) {
-                match_t m2;
-                seq = m->seq;
-                seq.next_token();
-                if ((m2 = rule_HundredSfx(seq))) {
-                    return match_result_t{ m2->seq, m->num * 100 + (m2->num - 100) };
-                }
+        if ((m = rule_Below100(it))) {
+
+            // Check if Digit Space HundedSfx rule is still valid.
+            if (m.num < 10) {
+                match_t hundredsfx_match;
+                it += m.size;
+
+                if (!it->is_space()) return m;
+                ++it;
+
+                if ((hundredsfx_match = rule_HundredSfx(it)))
+                    return { m.size + 1 + hundredsfx_match.size, m.num * 100 + (hundredsfx_match.num - 100) };
             }
             return m;
         }
 
-        return absl::nullopt;
+        return {};
     }
 
     /**
      * Matches the rule:
-     * ThousandSfx  -> 'thousand' | 'thousand ' Hundreds
+     * ThousandSfx  -> 'thousand' | 'thousand' Space Hundreds
      */
-    match_t rule_ThousandSfx(token_sequence_t seq) noexcept
+    match_t rule_ThousandSfx(forward_token_iterator_t it) noexcept
     {
-        if (seq.curr() != "thousand") return {};
-        match_t m = match_result_t{ seq, 1000 };
+        if (it->str() != "thousand") return {};
+        match_t m = { 1, 1000 };
+        ++it;
 
         // be greedy and try to match Hundreds
-        seq.next_token();
-        match_t m2;
-        if ((m2 = rule_Hundreds(seq))) return match_result_t{ m2->seq, 1000 + m2->num };
+        if (!it->is_space()) return m;
+        ++it;
+
+        match_t hundreds_match;
+        if ((hundreds_match = rule_Hundreds(it)))
+            return { m.size + 1 + hundreds_match.size, 1000 + hundreds_match.num };
 
         return m;
     }
 
     /**
      * Matches the rule:
-     * Thousands    -> Hundreds | Hundreds ' ' ThousandSfx
+     * Thousands    -> Hundreds | Hundreds Space ThousandSfx
      */
-    match_t rule_Thousands(token_sequence_t seq) noexcept
+    match_t rule_Thousands(forward_token_iterator_t it) noexcept
     {
         match_t m;
-        if ((m = rule_Hundreds(seq))) {
+        if ((m = rule_Hundreds(it))) {
 
-            // try to match ThousandSfx
-            seq = m->seq;
-            seq.next_token();
+            // try to match the rule Hundreds Space ThousandSfx
+            it += m.size;
+
+            if (!it->is_space()) return m;
+            ++it;
+
             match_t m2;
-            if ((m2 = rule_ThousandSfx(seq))) {
-                return match_result_t{ m2->seq, 1000 * m->num + (m2->num-1000) };
-            }
-
-            return m;
-        }
-
-        return absl::nullopt;
-    }
-
-    /**
-     * Matches the rule:
-     * MillionSfx   -> 'million' | 'million ' Thousands
-     */
-    match_t rule_MillionSfx(token_sequence_t seq) noexcept
-    {
-        if (seq.curr() != "million") return {};
-        match_t m = match_result_t{ seq, 1000000 };
-
-        // be greedy and try to match Hundreds
-        seq.next_token();
-        match_t m2;
-        if ((m2 = rule_Thousands(seq))) return match_result_t{ m2->seq, 1000000 + m2->num };
-
-        return m;
-    }
-
-    /**
-     * Matches the rule:
-     * Millions    -> Thousands | Thousands ' ' MillionSfx
-     */
-    match_t rule_Millions(token_sequence_t seq) noexcept
-    {
-        match_t m;
-        if ((m = rule_Thousands(seq))) {
-
-            // try to match MillionSfx
-            seq = m->seq;
-            seq.next_token();
-            match_t m2;
-            if ((m2 = rule_MillionSfx(seq))) {
-                return match_result_t{ m2->seq, 1000000 * m->num + (m2->num-1000000) };
-            }
+            if ((m2 = rule_ThousandSfx(it)))
+                return { m.size + 1 + m2.size, 1000 * m.num + (m2.num-1000) };
 
             return m;
         }
@@ -212,40 +188,109 @@ namespace {
 
     /**
      * Matches the rule:
-     * AValue -> 'a ' HundredSfx | 'a ' ThousandSfx | 'a hundred ' ThousandSfx | 'a ' MillionSfx | 'a hundred ' MillionSfx
+     * MillionSfx   -> 'million' | 'million' Space Thousands
      */
-    match_t rule_AValue(token_sequence_t seq) noexcept
+    match_t rule_MillionSfx(forward_token_iterator_t it) noexcept
     {
-        if (seq.curr() != "a") return {};
-        seq.next_token();
+        if (it->str() != "million") return {};
+        match_t m = { 1, 1000000 };
+        ++it;
 
-        // treat all the 'a hundred' cases
-        // 'a ' HundredSfx | 'a hundred ' ThousandSfx | 'a hundred ' MillionSfx | 'a ' ThousandSfx | 'a ' MillionSfx
+        // be greedy and try to match Space Thousands
+        if (!it->is_space()) return m;
+        ++it;
+
+        match_t m2;
+        if ((m2 = rule_Thousands(it)))
+            return { m.size + 1 + m2.size, 1000000 + m2.num };
+
+        return m;
+    }
+
+    /**
+     * Matches the rule:
+     * Millions    -> Thousands | Thousands Space MillionSfx
+     */
+    match_t rule_Millions(forward_token_iterator_t it) noexcept
+    {
         match_t m;
-        if ((m = rule_HundredSfx(seq))) {
-            if (m->num == 100) {
-                // might be 'a hundred thousand' / 'a hundred million' / ...
-                seq = m->seq;
-                seq.next_token();
+        if ((m = rule_Thousands(it))) {
 
-                match_t m2;
-                if ((m2 = rule_ThousandSfx(seq))) return match_result_t{ m2->seq, (m2->num-1000) + 100000 };
-                if ((m2 = rule_MillionSfx(seq))) return match_result_t{ m2->seq, (m2->num-1000000) + 100000000 };
-            }
+            // try to match Space MillionSfx
+            it += m.size;
+
+            if (!it->is_space()) return m;
+            ++it;
+
+            match_t m2;
+            if ((m2 = rule_MillionSfx(it)))
+                return { m.size + 1 + m2.size, 1000000 * m.num + (m2.num-1000000) };
+
             return m;
         }
-        if ((m = rule_ThousandSfx(seq))) return m;
-        return rule_MillionSfx(seq);
+
+        return {};
+    }
+
+    /**
+     * Matches the rule:
+     * AValue -> 'a' Space HundredSfx | 'a' Space 'hundred' Space ThousandSfx | 'a' Space 'hundred' Space MillionSfx  | 'a' Space ThousandSfx | 'a' Space MillionSfx
+     */
+    match_t rule_AValue(forward_token_iterator_t it) noexcept
+    {
+        // 'a'
+        if (it->str() != "a") return {};
+        ++it;
+
+        // 'a' Space
+        if (!it->is_space()) return {};
+        ++it;
+
+        // treat all the 'a' Space 'hundred' cases
+        // 'a' Space HundredSfx | 'a' Space 'hundred' Space ThousandSfx | 'a' Space 'hundred' Space MillionSfx
+        match_t m;
+        if ((m = rule_HundredSfx(it))) {
+            it += m.size;
+            m.size += 2; // include 'a' Space
+
+            // check that the text is actually 'hundred' alone in order to match
+            // 'a' Space 'hundred' Space ThousandSfx | 'a' Space 'hundred' Space MillionSfx
+            if (m.num == 100) {
+
+                // 'a' Space 'hundred' Space
+                if (!it->is_space()) return m;
+                ++it;
+
+                match_t m2;
+
+                // 'a' Space 'hundred' Space ThousandSfx
+                if ((m2 = rule_ThousandSfx(it))) return { m.size + 1 + m2.size, (m2.num - 1000) + 100000 };
+
+                // 'a' Space 'hundred' Space MillionSfx
+                if ((m2 = rule_MillionSfx(it))) return { m.size + 1 + m2.size, (m2.num - 1000000) + 100000000 };
+            }
+
+            // matched rule was 'a' Space HundredSfx
+            return m;
+        }
+
+        // handle rule 'a' Space ThousandSfx
+        if ((m = rule_ThousandSfx(it))) return { m.size + 2, m.num };
+
+        // handle rule 'a' Space MillionSfx
+        if ((m = rule_MillionSfx(it))) return { m.size + 2, m.num };
+
+        return {};
     }
 }
 
 namespace core {
-    match_t match_cardinal_number(token_sequence_t seq) noexcept
+    match_t match_cardinal_number(forward_token_iterator_t it) noexcept
     {
         // CardNum -> 'zero' | Millions | AValue
         match_t m;
-        if (seq.curr() == "zero") return match_result_t{ seq, 0 };
-        else if ((m = rule_AValue(seq))) return m;
-        return rule_Millions(seq);
+        if (it->str() == "zero") return { 1, 0 };
+        else if ((m = rule_AValue(it))) return m;
+        return rule_Millions(it);
     }
 }

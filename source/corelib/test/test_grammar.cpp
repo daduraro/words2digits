@@ -19,13 +19,11 @@ TEST_P(test_grammar, conformance)
     std::stringstream ss{ param.first };
     token_stream_t stream{ss};
 
-    auto match = match_cardinal_number(stream.new_sequence());
+    auto it = stream.begin().look_ahead();
+    auto match = match_cardinal_number(it);
     ASSERT_TRUE(match);
-    ASSERT_EQ(match->num, param.second);
-
-    std::stringstream out;
-    stream.commit(match->seq, out);
-    ASSERT_TRUE(stream.empty());
+    ASSERT_EQ(match.num, param.second);
+    ASSERT_TRUE((it + match.size)->is_end());
 }
 
 struct test_fail_grammar : ::testing::TestWithParam<std::string> {};
@@ -35,8 +33,9 @@ TEST_P(test_fail_grammar, conformance)
     std::stringstream ss{ param };
     token_stream_t stream{ss};
 
-    auto match = match_cardinal_number(stream.new_sequence());
-    ASSERT_FALSE(match);
+    auto it = stream.begin().look_ahead();
+    auto match = match_cardinal_number(it);
+    ASSERT_TRUE(!match || !(it + match.size)->is_end());
 }
 
 
@@ -68,5 +67,7 @@ INSTANTIATE_TEST_SUITE_P(, test_fail_grammar, ::testing::Values(
 "",
 "asfr",
 "for-ty",
-"tw,o"
+"tw,o",
+"forty -two",
+"fifty five"
 ));

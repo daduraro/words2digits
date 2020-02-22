@@ -11,10 +11,10 @@
 
 namespace {
     using namespace core;
-    token_class_e classify_char(char c, const std::locale& loc) noexcept {
-        if (std::isspace(c, loc)) return token_class_e::space;
-        if (std::isalpha(c, loc)) return token_class_e::alpha;
-        return token_class_e::other;
+    token_category_e classify_char(char c, const std::locale& loc) noexcept {
+        if (std::isspace(c, loc)) return token_category_e::space;
+        if (std::isalpha(c, loc)) return token_category_e::alpha;
+        return token_category_e::other;
     }
 }
 
@@ -26,72 +26,19 @@ namespace core {
     }
 
     bool token_stream_t::empty() const noexcept {
-        return token_type_.front() == token_class_e::end;
+        return token_type_.front() == token_category_e::end;
     }
 
     token_stream_t::operator bool() const noexcept {
         return !empty();
     }
 
-    void token_stream_t::replace(token_sequence_t seq, std::string value, bool preserve_newline) noexcept {
-        // TODO probably replace should be replace_and_commit, as after a replace the only valid option
-        //      is to commit the changes
-
-        // find whether we should place a newline at the beginning of value
-        bool newline = false;
-        if (preserve_newline) {
-            for (auto id : seq) {
-                if (token_class(id) == token_class_e::space) {
-                    if (std::find(tokens_[id-first_].begin(), tokens_[id-first_].end(), '\n') != tokens_[id-first_].end()) {
-                        newline = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if (newline) {
-            value.insert(value.begin(), '\n');
-        }
-
-        // mark all token sequence as replaced, and clear their contents
-        for (auto id : seq) {
-            token_class(id) = token_class_e::replaced;
-            token(id).clear();
-            token_raw(id).clear();
-        }
-
-        // change first token to value
-        token_raw(seq.first_id()) = std::move(value);
+    input_token_iterator_t token_stream_t::begin() noexcept {
+        return { *this, first_ };
     }
 
-    void token_stream_t::commit(token_sequence_t seq, std::ostream& os) noexcept {
-        // check if already committed
-        //assert(id >= first_);
-        auto id = seq.curr_id();
-        if (id < first_) return;
-
-        assert(token_in_window(id));
-
-        // id is inclusive, make it exclusive (sum one) unless it is the end token
-        if (token_class(id) != token_class_e::end) {
-            ++id;
-        }
-
-        // commit all tokens up to id
-        for (auto i = first_; i < id; ++i) {
-            const auto& token = token_raw(i);
-            os.write(token.c_str(), token.size());
-        }
-        tokens_.erase(tokens_.begin(), std::next(tokens_.begin(), id - first_));
-        normalized_tokens_.erase(normalized_tokens_.begin(), std::next(normalized_tokens_.begin(), id - first_));
-        token_type_.erase(token_type_.begin(), std::next(token_type_.begin(), id - first_));
-
-        // check whether we should obtain next token
-        if (!token_in_window(id)) get_token();
-
-        // next non-commited token is id
-        first_ = id;
-        assert(token_in_window(first_)); // check class invariant is preserved
+    eof_token_t token_stream_t::end() const noexcept {
+        return {};
     }
 
     std::string& token_stream_t::token(std::size_t id) noexcept {
@@ -114,39 +61,30 @@ namespace core {
         return tokens_[id - first_];
     }
 
-    token_class_e& token_stream_t::token_class(std::size_t id) noexcept {
+    token_category_e& token_stream_t::token_category(std::size_t id) noexcept {
         assert(token_in_window(id));
         return token_type_[id - first_];
     }
 
-    const token_class_e& token_stream_t::token_class(std::size_t id) const noexcept {
+    const token_category_e& token_stream_t::token_category(std::size_t id) const noexcept {
         assert(id >= first_ && id + first_ < token_type_.size());
         return token_type_[id - first_];
     }
 
-    token_sequence_t token_stream_t::new_sequence(token_class_e filter) noexcept {
-        assert(filter != token_class_e::replaced);
-        auto id = first_;
-        token_class_e c = token_class(id);
-        while (c != token_class_e::end && c != filter) {
-            ++id;
-            if (!token_in_window(id)) get_token();
-            c = token_class(id);
-        }
-
-        return { *this, id, id };
-    }
-
-    bool token_stream_t::token_in_window(token_id_t id) const noexcept {
+    bool token_stream_t::token_in_window(std::size_t id) const noexcept {
         assert(tokens_.size() == normalized_tokens_.size() && tokens_.size() == token_type_.size());
         return id >= first_ && id - first_ < tokens_.size();
+    }
+
+    std::size_t token_stream_t::last() noexcept {
+        return first_ + tokens_.size() - 1;
     }
 
     void token_stream_t::get_token() noexcept {
         char c;
 
         // check if already at the end of the token stream
-        if (!token_type_.empty() && token_type_.back() == token_class_e::end) {
+        if (!token_type_.empty() && token_type_.back() == token_category_e::end) {
             return;
         }
 
@@ -154,7 +92,7 @@ namespace core {
         if (!is_->get(c)) {
             tokens_.emplace_back();
             normalized_tokens_.emplace_back();
-            token_type_.push_back(token_class_e::end);
+            token_type_.push_back(token_category_e::end);
             return;
         }
 
@@ -179,7 +117,7 @@ namespace core {
         }
 
         // normalize token, which means convert to lowercase for alpha tokens, and leave as is for the rest
-        if (t == token_class_e::alpha) {
+        if (t == token_category_e::alpha) {
             auto& normalized_token = normalized_tokens_.back();
             std::transform(token.begin(), token.end(), std::back_inserter(normalized_token), [&loc](char in){ return std::tolower(in, loc); });
         }
@@ -189,21 +127,39 @@ namespace core {
     }
 
 
-    token_id_t token_stream_t::next_token(token_id_t id, bool skip_other, bool skip_ws) noexcept
+    std::size_t token_stream_t::get_token(std::size_t id) noexcept
     {
-        assert(token_in_window(id));
-        if (token_class(id) == token_class_e::end) return id;
-        while (true) {
-            ++id;
-            if (!token_in_window(id)) get_token();
-            assert(token_in_window(id));
+        assert(id >= first_);
+        if (token_in_window(id)) return id;
 
-            auto c = token_class(id);
-            if (c == token_class_e::other && skip_other) continue;
-            if (c == token_class_e::space && skip_ws) continue;
-            break;
+        auto idx = last();
+        while (token_category(idx) != token_category_e::end) {
+            get_token();
+            ++idx;
+            if (idx == id) return id;
         }
-        return id;
+
+        return idx;
     }
 
+    std::size_t token_stream_t::get_remove_token(std::size_t id) noexcept
+    {
+        assert(id >= first_);
+
+        // get_token until id is in the window
+        auto idx = std::min(last(), id);
+        while (idx != id && token_category(idx) != token_category_e::end) {
+            get_token();
+            ++idx;
+        }
+
+        // all tokens up-to idx (non-inclusive) must be removed
+        tokens_.erase(tokens_.begin(), std::next(tokens_.begin(), idx - first_));
+        normalized_tokens_.erase(normalized_tokens_.begin(), std::next(normalized_tokens_.begin(), idx - first_));
+        token_type_.erase(token_type_.begin(), std::next(token_type_.begin(), idx - first_));
+
+        first_ = idx;
+        assert(token_in_window(first_));
+        return idx;
+    }
 }
