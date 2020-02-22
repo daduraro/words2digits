@@ -67,7 +67,7 @@ namespace core {
     }
 
     const token_category_e& token_stream_t::token_category(std::size_t id) const noexcept {
-        assert(id >= first_ && id + first_ < token_type_.size());
+        assert(token_in_window(id));
         return token_type_[id - first_];
     }
 
