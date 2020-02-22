@@ -31,11 +31,6 @@ set_target_properties(unittest PROPERTIES
     CXX_STANDARD_REQUIRED 1
 )
 
-if (CMAKE_COMPILER_IS_GNUCXX AND W2D_COVERAGE)
-    target_compile_options(unittest PUBLIC -fprofile-arcs -ftest-coverage -fPIC)
-    target_link_options(unittest PUBLIC -lgcov --coverage)
-endif()
-
 target_include_directories(unittest
 PUBLIC
     $<BUILD_INTERFACE:${TEST_INCLUDE_DIR}>

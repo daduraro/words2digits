@@ -34,8 +34,10 @@ TEST(test_token_stream, conformance) {
     ASSERT_EQ(it->id(), 3);
     ASSERT_TRUE(it->is_end());
 
-    ++it;
-    ASSERT_TRUE(it->is_end());
-    ASSERT_EQ(it->id(), 3);
+    auto fwdit = it.look_ahead();
+    ++fwdit;
+    ASSERT_TRUE(fwdit->is_end());
+    ASSERT_EQ(fwdit->id(), 3);
+
 }
 

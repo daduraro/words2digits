@@ -19,13 +19,19 @@ macro(package_add_doc)
     set(DOC_SOURCES ${DOC_SOURCES} PARENT_SCOPE) # this is the actual TEST_SOURCES, only if just 1 scope deeper (function/subdirectories scope)
 endmacro()
 
-add_subdirectory("${EXTERN_DIR}/abseil" "extern/abseil-cpp" EXCLUDE_FROM_ALL)
-add_subdirectory(corelib)
-add_subdirectory(cli)
-
 option(W2D_TESTS "Build the tests" OFF)
 option(W2D_COVERAGE "For GCC target, compile tests with gcov" OFF)
 option(W2D_BUILD_DOC "Build the docs" ON)
+
+if (CMAKE_COMPILER_IS_GNUCXX AND W2D_COVERAGE)
+    # TODO assert that CMAKE_BUILD_TYPE is in Debug
+    add_compile_options(-DNDEBUG -fprofile-arcs -ftest-coverage -fPIC)
+    add_link_options(-lgcov --coverage)
+endif()
+
+add_subdirectory("${EXTERN_DIR}/abseil" "extern/abseil-cpp" EXCLUDE_FROM_ALL)
+add_subdirectory(corelib)
+add_subdirectory(cli)
 
 # add unittest target
 if (W2D_TESTS)

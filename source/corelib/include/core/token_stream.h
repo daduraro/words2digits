@@ -139,7 +139,7 @@ namespace core {
         friend class input_token_iterator_t;
     public:
         /// The token category.
-        token_category_e category() const noexcept { return stream_->token_category(id_); };
+        token_category_e category() const noexcept { return static_cast<const token_stream_t*>(stream_)->token_category(id_); };
         /// True if the token is end of tokens.
         bool is_end() const noexcept { return category() == token_category_e::end; }
         /// True if the token category is space.
@@ -149,9 +149,9 @@ namespace core {
         /// True if the token category is other.
         bool is_other() const noexcept { return category() == token_category_e::other; }
         /// The normalized textual representation of the token.
-        const std::string& str() const noexcept { return stream_->token(id_); };
+        const std::string& str() const noexcept { return static_cast<const token_stream_t*>(stream_)->token(id_); };
         /// The original textual representation of the token.
-        const std::string& raw_str() const noexcept { return stream_->token_raw(id_); };
+        const std::string& raw_str() const noexcept { return static_cast<const token_stream_t*>(stream_)->token_raw(id_); };
         /// The sequential ID of the token.
         std::size_t id() const noexcept { return id_; }
 
