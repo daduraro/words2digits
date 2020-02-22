@@ -1,4 +1,5 @@
-add_subdirectory("${EXTERN_DIR}/googletest" "extern/googletest")
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory("${EXTERN_DIR}/googletest" "extern/googletest" EXCLUDE_FROM_ALL)
 
 # cleaner cache variables for cmake GUI
 mark_as_advanced(
@@ -15,6 +16,7 @@ set_target_properties(gtest_main PROPERTIES FOLDER extern)
 set_target_properties(gmock PROPERTIES FOLDER extern)
 set_target_properties(gmock_main PROPERTIES FOLDER extern)
 
+# set unittest directory structure
 set(TEST_DIR "${SOURCE_DIR}/unittest")
 set(TEST_SOURCE_DIR "${TEST_DIR}/src")
 set(TEST_INCLUDE_DIR "${TEST_DIR}/include")
@@ -29,8 +31,6 @@ set_target_properties(unittest PROPERTIES
     CXX_STANDARD_REQUIRED 1
 )
 
-get_target_property(CLI_INCLUDE_DIRS words2digits INCLUDE_DIRECTORIES)
-
 if (CMAKE_COMPILER_IS_GNUCXX AND W2D_COVERAGE)
     target_compile_options(unittest PUBLIC -fprofile-arcs -ftest-coverage -fPIC)
     target_link_options(unittest PUBLIC -lgcov --coverage)
@@ -39,10 +39,9 @@ endif()
 target_include_directories(unittest
 PUBLIC
     $<BUILD_INTERFACE:${TEST_INCLUDE_DIR}>
-    $<BUILD_INTERFACE:${CLI_INCLUDE_DIRS}>
 )
 
-target_link_libraries(unittest PRIVATE gtest gmock gtest_main)
+target_link_libraries(unittest PRIVATE corelib gtest gmock gtest_main)
 
 # include(GoogleTest)
 # gtest_discover_tests(unittest)

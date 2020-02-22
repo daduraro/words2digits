@@ -1,6 +1,8 @@
-#include "grammar.h"
+#include "core/grammar.h"
 
 namespace {
+    using namespace corelib;
+
     /**
      * Matches the rule:
      * Digit -> 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine'
@@ -238,11 +240,13 @@ namespace {
     }
 }
 
-match_t match_cardinal_number(token_sequence_t seq) noexcept
-{
-    // CardNum -> 'zero' | Millions | AValue
-    match_t m;
-    if (seq.curr() == "zero") return { seq, 0 };
-    else if ((m = rule_AValue(seq))) return m;
-    return rule_Millions(seq);
+namespace corelib {
+    match_t match_cardinal_number(token_sequence_t seq) noexcept
+    {
+        // CardNum -> 'zero' | Millions | AValue
+        match_t m;
+        if (seq.curr() == "zero") return { seq, 0 };
+        else if ((m = rule_AValue(seq))) return m;
+        return rule_Millions(seq);
+    }
 }

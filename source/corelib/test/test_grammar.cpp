@@ -1,11 +1,13 @@
 #include "unittest.h"
 
-#include "token_stream.h"
-#include "grammar.h"
+#include "core/token_stream.h"
+#include "core/grammar.h"
 
 #include <string>
 #include <cstdint>
 #include <utility>
+
+using namespace corelib;
 
 using test_arg = std::pair<std::string, std::uint64_t>;
 

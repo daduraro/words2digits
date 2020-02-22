@@ -1,11 +1,13 @@
 #include "unittest.h"
 
-#include "digitize.h"
+#include "core/digitize.h"
 
 #include <sstream>
 #include <fstream>
 #include <cstdio>
 #include <array>
+
+using namespace corelib;
 
 struct test_run : ::testing::Test {};
 

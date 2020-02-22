@@ -1,7 +1,7 @@
-#include "digitize.h"
+#include "core/digitize.h"
 
-#include "grammar.h"
-#include "token_stream.h"
+#include "core/grammar.h"
+#include "core/token_stream.h"
 
 #include <fstream>
 #include <vector>
@@ -13,6 +13,7 @@
 #include <algorithm>
 
 namespace {
+    using namespace corelib;
 
     /// Prints usage/help message.
     void usage(std::string name, std::ostream& os) noexcept {
@@ -92,86 +93,88 @@ namespace {
     }
 }
 
-void convert(std::istream& is, std::ostream& os) noexcept
-{
-    std::locale loc("en_US.UTF-8");
-    is.imbue(loc);
-    token_stream_t stream(is);
+namespace corelib {
 
-    while (stream) {
-        token_sequence_t seq = stream.new_sequence();
-        auto m = match_cardinal_number(seq);
-        if (m) {
-            stream.replace(m.seq, std::to_string(m.num));
-            stream.commit(m.seq, os);
+    void convert(std::istream& is, std::ostream& os) noexcept
+    {
+        std::locale loc("en_US.UTF-8");
+        is.imbue(loc);
+        token_stream_t stream(is);
+
+        while (stream) {
+            token_sequence_t seq = stream.new_sequence();
+            auto m = match_cardinal_number(seq);
+            if (m) {
+                stream.replace(m.seq, std::to_string(m.num));
+                stream.commit(m.seq, os);
+            }
+            else {
+                stream.commit(seq, os);
+            }
+        }
+    }
+
+    int run(int argc, char const* const* argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept
+    {
+        // parse arguments
+        auto args = parse_args(argc, argv, err);
+        if (!args.first) return 1;
+
+        // destructure binding
+        auto& parsed_args = args.second;
+        auto& help = parsed_args.help;
+        auto& force = parsed_args.force;
+        auto& infile = parsed_args.infile;
+        auto& outfile = parsed_args.outfile;
+
+        // show help message if requested
+        if (help) {
+            usage(argv[0], out);
+            return 0;
+        }
+
+        // open files if appropiate
+        std::ifstream ifobj;
+        std::ofstream ofobj;
+
+        if (infile.first) {
+            ifobj.open(infile.second);
+            if (!ifobj.good()) {
+                err << "ERROR could not access '" << infile.second << "'" << std::endl;
+                return 1;
+            }
+        }
+
+        if (outfile.first) {
+            // TODO unfortunately, there is a filesystem race condition here, however, until
+            //      C++17 the C11 'x' flag of fopen was not standardized, thus there is
+            //      no reliable way to avoid it using only the standard library.
+            //      See https://en.cppreference.com/w/cpp/io/c/fopen.
+            //      In case this was critical, system-dependent APIs should be used.
+            std::ifstream test{ outfile.second, std::ios::binary };
+            if (test.good() && !force) {
+                err << "ERROR file '" << outfile.second << "' already exists, use --force to overwrite it" << std::endl;
+                return 1;
+            }
+            ofobj.open(outfile.second);
+            if (!ofobj.good()) {
+                err << "ERROR could not access '" << outfile.second << "'" << std::endl;
+                return 1;
+            }
+        }
+
+        // dispatch appropriately
+        if (ifobj.is_open() && ofobj.is_open()) {
+            convert(ifobj, ofobj);
+        }
+        else if (ifobj.is_open()) {
+            convert(ifobj, out);
         }
         else {
-            stream.commit(seq, os);
+            assert(!ofobj.is_open());
+            convert(in, out);
         }
-    }
-}
 
-int run(int argc, char const* const* argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept
-{
-    // parse arguments
-    auto args = parse_args(argc, argv, err);
-    if (!args.first) return 1;
-
-    // destructure binding
-    auto& parsed_args = args.second;
-    auto& help = parsed_args.help;
-    auto& force = parsed_args.force;
-    auto& infile = parsed_args.infile;
-    auto& outfile = parsed_args.outfile;
-
-    // show help message if requested
-    if (help) {
-        usage(argv[0], out);
         return 0;
     }
-
-    // open files if appropiate
-    std::ifstream ifobj;
-    std::ofstream ofobj;
-
-    if (infile.first) {
-        ifobj.open(infile.second);
-        if (!ifobj.good()) {
-            err << "ERROR could not access '" << infile.second << "'" << std::endl;
-            return 1;
-        }
-    }
-
-    if (outfile.first) {
-        // TODO unfortunately, there is a filesystem race condition here, however, until
-        //      C++17 the C11 'x' flag of fopen was not standardized, thus there is
-        //      no reliable way to avoid it using only the standard library.
-        //      See https://en.cppreference.com/w/cpp/io/c/fopen.
-        //      In case this was critical, system-dependent APIs should be used.
-        std::ifstream test{ outfile.second, std::ios::binary };
-        if (test.good() && !force) {
-            err << "ERROR file '" << outfile.second << "' already exists, use --force to overwrite it" << std::endl;
-            return 1;
-        }
-        ofobj.open(outfile.second);
-        if (!ofobj.good()) {
-            err << "ERROR could not access '" << outfile.second << "'" << std::endl;
-            return 1;
-        }
-    }
-
-    // dispatch appropriately
-    if (ifobj.is_open() && ofobj.is_open()) {
-        convert(ifobj, ofobj);
-    }
-    else if (ifobj.is_open()) {
-        convert(ifobj, out);
-    }
-    else {
-        assert(!ofobj.is_open());
-        convert(in, out);
-    }
-
-    return 0;
 }
-

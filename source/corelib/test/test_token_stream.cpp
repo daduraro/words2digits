@@ -1,9 +1,11 @@
 #include "unittest.h"
 
-#include "token_stream.h"
+#include "core/token_stream.h"
 
 #include <string>
 #include <sstream>
+
+using namespace corelib;
 
 struct test_token_stream : ::testing::Test {};
 
