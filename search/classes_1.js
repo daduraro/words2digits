@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['token_5fsequence_5ft_14',['token_sequence_t',['../classtoken__sequence__t.html',1,'']]],
-  ['token_5fstream_5ft_15',['token_stream_t',['../classtoken__stream__t.html',1,'']]]
+  ['eof_5ftoken_5ft',['eof_token_t',['../structcore_1_1eof__token__t.html',1,'core']]]
 ];

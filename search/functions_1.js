@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['empty_18',['empty',['../classtoken__stream__t.html#afaa4a7e4c09e16ecc55620f387a24c7e',1,'token_stream_t']]]
+  ['category',['category',['../classcore_1_1token__view__t.html#aaa4a62efce036fa3bc4720e103ad8d53',1,'core::token_view_t']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['seq_26',['seq',['../structmatch__t.html#a15114c7ffb2bea58cb0218022e38bf57',1,'match_t']]]
+  ['num',['num',['../structcore_1_1match__t.html#a4a26b3a296b0b768303e300bcb5c8f07',1,'core::match_t']]]
 ];

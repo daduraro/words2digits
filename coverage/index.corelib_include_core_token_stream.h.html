@@ -266,21 +266,21 @@
           </tr>
           <tr>
             <td class="headerName">File:</td>
-            <td class="headerValue">include/token_stream.h</td>
+            <td class="headerValue">corelib/include/core/token_stream.h</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">23</td>
-            <td class="headerTableEntry">23</td>
+            <td class="headerTableEntry">20</td>
+            <td class="headerTableEntry">20</td>
             <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-02-17 01:29:49</td>
+            <td class="headerValue">2020-02-22 18:21:16</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">1</td>
-            <td class="headerTableEntry">2</td>
-            <td class="headerTableEntry" style="background-color:LightPink">50.0 %</td>
+            <td class="headerTableEntry">0</td>
+            <td class="headerTableEntry">0</td>
+            <td class="headerTableEntry" style="background-color:LightGray">- %</td>
           </tr>
         </table>
       </td>
@@ -331,28 +331,28 @@
     <td align="right" class="lineno"><pre>5</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &lt;cassert></pre></td>
+    <td align="left" class="src "><pre>#include &lt;vector></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>6</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &lt;vector></pre></td>
+    <td align="left" class="src "><pre>#include &lt;string></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>7</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &lt;string></pre></td>
+    <td align="left" class="src "><pre>#include &lt;iterator></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>8</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &lt;iterator></pre></td>
+    <td align="left" class="src "><pre>#include &lt;cassert></pre></td>
     </tr>
 
     <tr>
@@ -366,833 +366,833 @@
     <td align="right" class="lineno"><pre>10</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>/**</pre></td>
+    <td align="left" class="src "><pre>namespace core {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>11</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @brief The type of a token.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>12</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> */</pre></td>
+    <td align="left" class="src "><pre>    /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>13</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>enum class token_class_e {</pre></td>
+    <td align="left" class="src "><pre>     * @brief The type of a token.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>14</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    space,      //!&lt; Token is formed by whitespace characters.</pre></td>
+    <td align="left" class="src "><pre>     */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>15</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    alpha,      //!&lt; Token is formed by letters.</pre></td>
+    <td align="left" class="src "><pre>    enum class token_category_e {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    other,      //!&lt; Token is punctuation, control characters, etc.</pre></td>
+    <td align="left" class="src "><pre>        space,      //!&lt; Token is formed by whitespace characters.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    replaced,   //!&lt; Token was replaced by token_stream_t::replace().</pre></td>
+    <td align="left" class="src "><pre>        alpha,      //!&lt; Token is formed by letters.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>18</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    end         //!&lt; Sentinel token</pre></td>
+    <td align="left" class="src "><pre>        other,      //!&lt; Token is punctuation, control characters, etc.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>19</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>};</pre></td>
+    <td align="left" class="src "><pre>        end         //!&lt; Sentinel token</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>20</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    };</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>21</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>using token_id_t = std::size_t;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>22</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    class token_view_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>23</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>class token_sequence_t;</pre></td>
+    <td align="left" class="src "><pre>    class forward_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    class input_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>/**</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>26</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @brief This class encapsulates the abstract notion of a token stream from an istream.</pre></td>
+    <td align="left" class="src "><pre>    struct eof_token_t {};</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>28</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Given a stream of characters, they are subdivided into chunks called tokens where</pre></td>
+    <td align="left" class="src "><pre>    /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * each character belong to the same category (see token_class_e).</pre></td>
+    <td align="left" class="src "><pre>     * @brief This class encapsulates the abstract notion of a token stream from an istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>30</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * To better visualize the notion of tokens, the text</pre></td>
+    <td align="left" class="src "><pre>     *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>31</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * "Today is not 25th of December, 99.8% guaranteed.\n" would be divided into the</pre></td>
+    <td align="left" class="src "><pre>     * Given a stream of characters, they are subdivided into chunks called tokens where</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>32</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * following token stream:</pre></td>
+    <td align="left" class="src "><pre>     * each character belong to the same category (see token_category_e).</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>     * To better visualize the notion of tokens, the text</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>34</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> \verbatim</pre></td>
+    <td align="left" class="src "><pre>     * "Today is not 25th of December, 99.8% guaranteed.\n" would be divided into the</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> ID     0     1 2  3 4   5 6  7  8 9 10 11      12 13 14  15 16        17 18 19</pre></td>
+    <td align="left" class="src "><pre>     * following token stream:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>       +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
+    <td align="left" class="src "><pre>     *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>37</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> Text  |Today| |is| |not| |25|th| |of| |December|,| |99.7%| |guaranteed|.|\n|&lt;end>|</pre></td>
+    <td align="left" class="src "><pre>    \verbatim</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>38</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>       +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
+    <td align="left" class="src "><pre>    ID     0     1 2  3 4   5 6  7  8 9 10 11      12 13 14  15 16        17 18 19</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>39</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> Class |a    |s|a |s|a  |s|o |a |s|a |s|a       |o|s|o    |s|a         |o|s |e    |</pre></td>
+    <td align="left" class="src "><pre>          +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>40</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>       +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
+    <td align="left" class="src "><pre>    Text  |Today| |is| |not| |25|th| |of| |December|,| |99.7%| |guaranteed|.|\n|&lt;end>|</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>41</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> \endverbatim</pre></td>
+    <td align="left" class="src "><pre>          +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>42</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>    Class |a    |s|a |s|a  |s|o |a |s|a |s|a       |o|s|o    |s|a         |o|s |e    |</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>          +-----+-+--+-+---+-+--+--+-+--+-+--------+-+-+-----+-+----------+-+--+-----+</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * where each | separates a token, and the categories are alpha (a), space (s), other (o)</pre></td>
+    <td align="left" class="src "><pre>    \endverbatim</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * and end of stream (e).</pre></td>
+    <td align="left" class="src "><pre>    *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>    * where each | separates a token, and the categories are alpha (a), space (s), other (o)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>47</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * The token stream is lazily constructed from an istream and can be accessed</pre></td>
+    <td align="left" class="src "><pre>    * and end of stream (e).</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>48</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * by the token_sequence_t helper class.</pre></td>
+    <td align="left" class="src "><pre>    *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Every token of the token sequence is either active, committed or unfetched.</pre></td>
+    <td align="left" class="src "><pre>    * The token stream is lazily constructed from an istream and can be accessed</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>50</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * The active tokens form a *contiguous* window in which any previous token is</pre></td>
+    <td align="left" class="src "><pre>    * by the forward_token_iterator_t and input_token_iterator_t helpers.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * committed, and any token still not extracted from the associated istream is</pre></td>
+    <td align="left" class="src "><pre>    *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>52</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * unfetched.</pre></td>
+    <td align="left" class="src "><pre>    * @note In order to support forward_token_iterator_t, this class stores the tokens</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Only active tokens can be committed, which will then become no longer active.</pre></td>
+    <td align="left" class="src "><pre>    *   in a transient storage. Once a token is consumed by incrementing a input_token_iterator_t,</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>    *   it can no longer be accessed by any iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>55</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * See also class token_sequence_t.</pre></td>
+    <td align="left" class="src "><pre>    */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>    class token_stream_t {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @invariant start_ indicates the first `active` token, and there will always be</pre></td>
+    <td align="left" class="src "><pre>        friend class token_view_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *            at least on active token (which might be the end sentinel token).</pre></td>
+    <td align="left" class="src "><pre>        friend class forward_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> */</pre></td>
+    <td align="left" class="src "><pre>        friend class input_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>class token_stream_t {</pre></td>
+    <td align="left" class="src "><pre>    public:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    friend class token_sequence_t;</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>62</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>public:</pre></td>
+    <td align="left" class="src "><pre>         * Constructs a token_stream_t from an istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>63</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>64</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Constructs a token_stream_t from an istream.</pre></td>
+    <td align="left" class="src "><pre>         * The lifetime of an object of token_stream_t must be</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>65</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>         * contained within the lifetime of its referred istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>66</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * The lifetime of an object of token_stream_t must be</pre></td>
+    <td align="left" class="src "><pre>         * Modifying the istream once a token_stream_t is constructed</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>67</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * contained within the lifetime of its referred istream.</pre></td>
+    <td align="left" class="src "><pre>         * will produce uncontrolled side-effects on the token stream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>68</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Modifying the istream once a token_stream_t is constructed</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * will produce uncontrolled side-effects on the token stream.</pre></td>
+    <td align="left" class="src "><pre>        token_stream_t(std::istream&amp; is) noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>71</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_stream_t(std::istream&amp; is) noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>         * Check whether the token stream is empty, i.e. all tokens</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>73</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>         * up to the end token have been committed.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>74</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Check whether the token stream is empty, i.e. all tokens</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>75</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * up to the end token have been committed.</pre></td>
+    <td align="left" class="src "><pre>         * @returns true if token stream is empty, false otherwise.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @returns true if token stream is empty, false otherwise.</pre></td>
+    <td align="left" class="src "><pre>        bool empty() const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>78</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>79</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    bool empty() const noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>80</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>         * Check if the token stream has non-committed tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>81</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>82</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Check if the token stream has non-committed tokens.</pre></td>
+    <td align="left" class="src "><pre>         * @returns true if token stream is not empty, false otherwise.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>84</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @returns true if token stream is not empty, false otherwise.</pre></td>
+    <td align="left" class="src "><pre>        explicit operator bool() const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>85</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>86</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    explicit operator bool() const noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>87</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @brief Returns an input iterator to the first valid token of the stream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>88</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>89</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Replaces a sequence of uncomitted tokens by a new value.</pre></td>
+    <td align="left" class="src "><pre>        input_token_iterator_t begin() noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>90</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>91</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * After replacing a sequence of uncomitted tokens, they cannot be</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>92</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * accessed any longer and can only be committed.</pre></td>
+    <td align="left" class="src "><pre>         * @brief Returns a sentinal iterator to the end of the stream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>93</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Tokens IDs will not be affected, thus any non-overlapping sequence</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>94</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * will remain unaffected by this operation.</pre></td>
+    <td align="left" class="src "><pre>        eof_token_t end() const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>95</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>96</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @pre No token in sequence `seq` have been comitted.</pre></td>
+    <td align="left" class="src "><pre>    private:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>97</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param seq Sequence of uncomitted tokens to be replaced.</pre></td>
+    <td align="left" class="src "><pre>        /// Access to the normalized text of the stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>98</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param value Value in which the tokens will be replaced to.</pre></td>
+    <td align="left" class="src "><pre>        std::string&amp; token(std::size_t id) noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>99</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param preserve_newline If true, if any space token contained a newline character,</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>100</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *        a newline character will be inserted at the *beginning* of value.</pre></td>
+    <td align="left" class="src "><pre>        /// Const access to the normalized text of the stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre>        const std::string&amp; token(std::size_t id) const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>102</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    void replace(token_sequence_t seq, std::string value, bool preserve_newline = true) noexcept;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>103</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Access to the actual text of the stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>104</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>        std::string&amp; token_raw(std::size_t id) noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>105</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Commits all the tokens with ID equal or less than the current</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * token of `seq`.</pre></td>
+    <td align="left" class="src "><pre>        /// Const access to the actual text of the stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>107</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>        const std::string&amp; token_raw(std::size_t id) const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>108</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Any committed token cannot be accessed or replaced.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>109</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * All committed tokens up to `id` that were not committed before</pre></td>
+    <td align="left" class="src "><pre>        /// Access to the category of stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>110</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * will be written to `os`.</pre></td>
+    <td align="left" class="src "><pre>        token_category_e&amp; token_category(std::size_t id) noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>111</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>112</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @note Committing a sequence whose current token is end token is safe</pre></td>
+    <td align="left" class="src "><pre>        /// Const access to the category of stored token `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>113</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *       and will have no effect if no uncomitted tokens exist.</pre></td>
+    <td align="left" class="src "><pre>        const token_category_e&amp; token_category(std::size_t id) const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>114</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>115</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param seq The sequence whose current token ID will be committed (inclusive).</pre></td>
+    <td align="left" class="src "><pre>        /// Checks whether a token is being stored.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>116</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param os All uncommitted tokens up to `id` will be written to `os`.</pre></td>
+    <td align="left" class="src "><pre>        bool token_in_window(std::size_t) const noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>117</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    void commit(token_sequence_t seq, std::ostream&amp; os) noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /// Returns last token ID that is stored.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>119</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        std::size_t last() noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>120</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>121</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * Create a new token sequence.</pre></td>
+    <td align="left" class="src "><pre>        /// Consumes a new token from the associated stream and stores it.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>122</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>        void get_token() noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>123</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param filter The token category of the single token of the new token sequence.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>124</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *               It must be either alpha, other, space or end.</pre></td>
+    <td align="left" class="src "><pre>        /// Consumes tokens from the associated stream until `id` token has been stored or EOF is reached.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>125</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @returns A token sequence with a single token, which is the first non-committed</pre></td>
+    <td align="left" class="src "><pre>        std::size_t get_token(std::size_t id) noexcept;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>126</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *      token of category `filter`, or the end token if none other exists.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>127</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre>        /// Consumes removing all tokens from storage up to `id`.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>128</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_sequence_t new_sequence(token_class_e filter = token_class_e::alpha) noexcept;</pre></td>
+    <td align="left" class="src "><pre>        std::size_t get_remove_token(std::size_t id) noexcept;</pre></td>
     </tr>
 
     <tr>
@@ -1206,42 +1206,42 @@
     <td align="right" class="lineno"><pre>130</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>private:</pre></td>
+    <td align="left" class="src "><pre>        std::istream* is_;                              //!&lt; Associated text stream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>131</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Access to the normalized text of the active token `id`.</pre></td>
+    <td align="left" class="src "><pre>        std::size_t first_;                             //!&lt; First active token ID.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>132</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::string&amp; token(token_id_t id) noexcept;</pre></td>
+    <td align="left" class="src "><pre>        std::vector&lt;std::string> tokens_;               //!&lt; Raw text of the active tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>133</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        std::vector&lt;std::string> normalized_tokens_;    //!&lt; Normalized text of the active tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>134</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Const access to the normalized text of the active token `id`.</pre></td>
+    <td align="left" class="src "><pre>        std::vector&lt;token_category_e> token_type_;      //!&lt; Category of the active tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>135</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    const std::string&amp; token(token_id_t id) const noexcept;</pre></td>
+    <td align="left" class="src "><pre>    };</pre></td>
     </tr>
 
     <tr>
@@ -1255,140 +1255,140 @@
     <td align="right" class="lineno"><pre>137</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Access to the actual text of the active token `id`.</pre></td>
+    <td align="left" class="src "><pre>    class token_view_t {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>138</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::string&amp; token_raw(token_id_t id) noexcept;</pre></td>
+    <td align="left" class="src "><pre>        friend class forward_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>139</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend class input_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>140</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Const access to the actual text of the active token `id`.</pre></td>
+    <td align="left" class="src "><pre>    public:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>141</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    const std::string&amp; token_raw(token_id_t id) const noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /// The token category.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>142</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>126</pre></td>
+    <td align="left" class="src coveredLine"><pre>        token_category_e category() const noexcept { return static_cast&lt;const token_stream_t*>(stream_)->token_category(id_); };</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>143</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Access to the category of active token `id`.</pre></td>
+    <td align="left" class="src "><pre>        /// True if the token is end of tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>144</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_class_e&amp; token_class(token_id_t id) noexcept;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>23</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bool is_end() const noexcept { return category() == token_category_e::end; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>145</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// True if the token category is space.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>146</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Const access to the category of active token `id`.</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>101</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bool is_space() const noexcept { return category() == token_category_e::space; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>147</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    const token_class_e&amp; token_class(token_id_t id) const noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /// True if the token category is alpha.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>148</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bool is_alpha() const noexcept { return category() == token_category_e::alpha; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>149</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Checks whether a token is `active`.</pre></td>
+    <td align="left" class="src "><pre>        /// True if the token category is other.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>150</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    bool token_in_window(token_id_t) const noexcept;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bool is_other() const noexcept { return category() == token_category_e::other; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>151</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// The normalized textual representation of the token.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>152</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Obtains a new token from the associated stream and makes it active.</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>270</pre></td>
+    <td align="left" class="src coveredLine"><pre>        const std::string&amp; str() const noexcept { return static_cast&lt;const token_stream_t*>(stream_)->token(id_); };</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>153</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    void get_token() noexcept;</pre></td>
+    <td align="left" class="src "><pre>        /// The original textual representation of the token.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>154</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="left" class="src coveredLine"><pre>        const std::string&amp; raw_str() const noexcept { return static_cast&lt;const token_stream_t*>(stream_)->token_raw(id_); };</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>155</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Obtains</pre></td>
+    <td align="left" class="src "><pre>        /// The sequential ID of the token.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>156</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_id_t next_token(token_id_t id, bool skip_other, bool skip_ws) noexcept;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="left" class="src coveredLine"><pre>        std::size_t id() const noexcept { return id_; }</pre></td>
     </tr>
 
     <tr>
@@ -1402,42 +1402,42 @@
     <td align="right" class="lineno"><pre>158</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::istream* is_;  //!&lt; Associated text stream.</pre></td>
+    <td align="left" class="src "><pre>    private:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>159</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_id_t first_;  //!&lt; First active token ID.</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>33</pre></td>
+    <td align="left" class="src coveredLine"><pre>        token_view_t(token_stream_t&amp; stream, std::size_t id) noexcept : stream_(&amp;stream), id_(id) { assert(stream.token_in_window(id)); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>160</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::vector&lt;std::string> tokens_;            //!&lt; Raw text of the active tokens.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>161</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::vector&lt;std::string> normalized_tokens_; //!&lt; Normalized text of the active tokens.</pre></td>
+    <td align="left" class="src "><pre>        token_stream_t* stream_;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>162</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    std::vector&lt;token_class_e> token_type_;      //!&lt; Category of the active tokens.</pre></td>
+    <td align="left" class="src "><pre>        std::size_t id_;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>163</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>};</pre></td>
+    <td align="left" class="src "><pre>    };</pre></td>
     </tr>
 
     <tr>
@@ -1451,154 +1451,154 @@
     <td align="right" class="lineno"><pre>165</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>/**</pre></td>
+    <td align="left" class="src "><pre>    /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>166</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @brief A token sequence represent a contiguous sequence of tokens from a token_stream_t.</pre></td>
+    <td align="left" class="src "><pre>     * @brief Forward token iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>167</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>     *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>168</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * A token sequence is represented by an initial starting token ID, and the last token ID</pre></td>
+    <td align="left" class="src "><pre>     * This is (almost) a forward iterator (lacks homogeneous type comparison) that represent</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>169</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * which also correspond to the current token ID.</pre></td>
+    <td align="left" class="src "><pre>     * a given token of a token_stream_t. Incrementing this iterator may trigger that its</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>170</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * A token sequence can only grow, and thus the current token ID can only refer</pre></td>
+    <td align="left" class="src "><pre>     * associated token_stream_t consumes characters of the istream in order to build new</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>171</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * to posterior tokens from the current token when the sequence was constructed.</pre></td>
+    <td align="left" class="src "><pre>     * tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>172</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Moreover, only the current token can be accessed, making it a class similar</pre></td>
+    <td align="left" class="src "><pre>     */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>173</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * to a forward iterator.</pre></td>
+    <td align="left" class="src "><pre>    class forward_token_iterator_t : private token_view_t {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>174</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Finally, a token sequence is only meaningful when it has an associated token sequence</pre></td>
+    <td align="left" class="src "><pre>        friend class input_token_iterator_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>175</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * and its semantics are those of a view (e.g. string_view, span, ...).</pre></td>
+    <td align="left" class="src "><pre>    public:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>176</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * A token sequence will get invalidated if any of its referring tokens become committed and,</pre></td>
+    <td align="left" class="src "><pre>        using iterator_category = std::forward_iterator_tag;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>177</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * in particular, the current sequence cannot be accessed if it has been committed.</pre></td>
+    <td align="left" class="src "><pre>        using value_type = const token_view_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>178</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre>        using difference_type = std::ptrdiff_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>179</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @note An invalid token sequence can be constructed, but accessing to any of its member</pre></td>
+    <td align="left" class="src "><pre>        using pointer = const value_type*;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>180</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *       function, except from operator bool() and the copy/assignment constructors,</pre></td>
+    <td align="left" class="src "><pre>        using reference = const value_type&amp;;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>181</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *       is a violation of their preconditions.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>182</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> */</pre></td>
+    <td align="left" class="src "><pre>        /// Dereference iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>183</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>class token_sequence_t {</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>        reference operator*() const noexcept { return static_cast&lt;reference>(*this); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>184</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    friend class token_stream_t;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>185</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>public:</pre></td>
+    <td align="left" class="src "><pre>        /// Dereference iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>186</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    // TODO once optional is implemented, remove default constructor and operator bool</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>387</pre></td>
+    <td align="left" class="src coveredLine"><pre>        pointer operator->() const noexcept { return static_cast&lt;pointer>(this); }</pre></td>
     </tr>
 
     <tr>
@@ -1612,259 +1612,259 @@
     <td align="right" class="lineno"><pre>188</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Constructs an invalid token sequence.</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>189</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>419</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_sequence_t() noexcept : stream_(nullptr), start_(), curr_() {};</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @brief Pre-increment iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>190</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>191</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Checks if the token sequence is valid.</pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>192</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>594</pre></td>
-    <td align="left" class="src coveredLine"><pre>    explicit operator bool() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>193</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>594</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return stream_ != nullptr;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>126</pre></td>
+    <td align="left" class="src coveredLine"><pre>        forward_token_iterator_t&amp; operator++() noexcept { id_ = stream_->get_token(id_+1); return *this; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>194</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>195</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>196</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    // default copy/move constructors/assignment as token_sequence_t</pre></td>
+    <td align="left" class="src "><pre>         * @brief Post-increment iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>197</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    // has value type semantics (it is a lightweight view type)</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>198</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_sequence_t(const token_sequence_t&amp; other) = default;</pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>199</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_sequence_t(token_sequence_t&amp;&amp; other) = default;</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>200</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_sequence_t&amp; operator=(const token_sequence_t&amp; other) = default;</pre></td>
+    <td align="left" class="src "><pre>        forward_token_iterator_t operator++(int) noexcept { forward_token_iterator_t retval = *this; ++(*this); return retval;}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>201</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_sequence_t&amp; operator=(token_sequence_t&amp;&amp; other) = default;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>202</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>203</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Access to the normalized text of the current token.</pre></td>
+    <td align="left" class="src "><pre>         * @brief Increment iterator by a certain amount.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>204</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>279</pre></td>
-    <td align="left" class="src coveredLine"><pre>    const std::string&amp; curr() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>205</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="takenBranch" title="Branch 2 taken 279 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>279</pre></td>
-    <td align="left" class="src coveredLine"><pre>        assert(*this);</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @param incr The amount in which the iterator is incremented.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>206</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>279</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return stream_->token(curr_);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>207</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>208</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>86</pre></td>
+    <td align="left" class="src coveredLine"><pre>        forward_token_iterator_t&amp; operator+=(std::size_t incr) noexcept { id_ = stream_->get_token(id_+incr); return *this; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>209</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>210</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @brief Grow sequence and updates current token.</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>211</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre>         * @brief Returns a copy of an iterator after advancing a certain amount.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>212</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * The next current token will be the first token of the stream</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>213</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * that is either alpha, other (if skip_other is false),</pre></td>
+    <td align="left" class="src "><pre>         * @param incr The amount in which the iterator is incremented.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>214</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * space (if skip_ws is false) or the end token.</pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>215</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * All tokens within current token and next one will be added</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>216</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * to the sequence.</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>35</pre></td>
+    <td align="left" class="src coveredLine"><pre>        friend forward_token_iterator_t operator+(forward_token_iterator_t it, std::size_t incr) noexcept { it += incr; return it; }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>217</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>218</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @pre Current token of sequence is valid (neither committed nor unfetched).</pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>219</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param skip_other If true, the next current token can be of class other.</pre></td>
+    <td align="left" class="src "><pre>         * @brief Returns a copy of an iterator after advancing a certain amount.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>220</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @param skip_ws If true, the next current token can be of class space.</pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>221</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre>         * @param incr The amount in which the iterator is incremented.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>222</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>118</pre></td>
-    <td align="left" class="src coveredLine"><pre>    void next_token(bool skip_other = false, bool skip_ws = true) noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>223</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>118</pre></td>
-    <td align="left" class="src coveredLine"><pre>        curr_ = stream_->next_token(curr_, skip_other, skip_ws);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>224</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>118</pre></td>
-    <td align="left" class="src coveredLine"><pre>    }</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend forward_token_iterator_t operator+(std::size_t incr, forward_token_iterator_t it) noexcept { it += incr; return it; }</pre></td>
     </tr>
 
     <tr>
@@ -1878,357 +1878,357 @@
     <td align="right" class="lineno"><pre>226</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> private:</pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>227</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /**</pre></td>
+    <td align="left" class="src "><pre>        friend bool operator==(const forward_token_iterator_t&amp; self, const eof_token_t&amp;) noexcept { return self.is_end(); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>228</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     * @brief Internal private class that implements iterating the IDs of</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>229</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     *        the tokens inside the token sequence.</pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>230</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>     */</pre></td>
+    <td align="left" class="src "><pre>        friend bool operator==(const eof_token_t&amp;, const forward_token_iterator_t&amp; self) noexcept { return self.is_end(); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>231</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    class token_id_iterator_t {</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>232</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    public:</pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self does not represent end of tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>233</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        using difference_type = std::ptrdiff_t;</pre></td>
+    <td align="left" class="src "><pre>        friend bool operator!=(const forward_token_iterator_t&amp; self, const eof_token_t&amp;) noexcept { return !self.is_end(); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>234</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        using value_type = token_id_t;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>235</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        using pointer = token_id_t;</pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self does not represent end of tokens.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>236</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        using reference = token_id_t;</pre></td>
+    <td align="left" class="src "><pre>        friend bool operator!=(const eof_token_t&amp;, const forward_token_iterator_t&amp; self) noexcept { return !self.is_end(); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>237</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        using iterator_category = std::forward_iterator_tag;</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>238</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
-    <td align="left" class="src coveredLine"><pre>        token_id_iterator_t(token_id_t idx) noexcept : idx_(idx) {}</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>239</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
-    <td align="left" class="src coveredLine"><pre>        token_id_t operator*() noexcept { return idx_; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>240</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        token_id_t operator->() noexcept { return idx_; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>241</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>17</pre></td>
-    <td align="left" class="src coveredLine"><pre>        token_id_iterator_t&amp; operator++() noexcept { ++idx_; return *this; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>242</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        token_id_iterator_t operator++(int) noexcept { ++idx_; return { idx_ - 1 }; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>243</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
-    <td align="left" class="src coveredLine"><pre>        friend bool operator==(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return lhs.idx_ == rhs.idx_; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>244</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
-    <td align="left" class="src coveredLine"><pre>        friend bool operator!=(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return !(lhs == rhs); }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>245</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        friend bool operator&lt;(token_id_iterator_t lhs, token_id_iterator_t rhs) noexcept { return lhs.idx_ &lt; rhs.idx_; }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>246</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    private:</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>247</pre></td>
+    <td align="right" class="lineno"><pre>239</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        token_id_t idx_;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>33</pre></td>
+    <td align="left" class="src coveredLine"><pre>        forward_token_iterator_t(token_stream_t&amp; stream, std::size_t id) noexcept : token_view_t(stream, id) {};</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>248</pre></td>
+    <td align="right" class="lineno"><pre>240</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    };</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>249</pre></td>
+    <td align="right" class="lineno"><pre>241</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>242</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>243</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    /**</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>244</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     * @brief Input token iterator.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>245</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     *</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>246</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     * This is (almost) an input iterator (lacks homogeneous type comparison) that represent</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>247</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     * a given token of a token_stream_t. Incrementing this iterator may trigger that its</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>248</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     * associated token_stream_t consumes characters of the istream in order to build new</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>249</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     * tokens. Moreover, when incrementing this iterator, all the previous tokens cannot</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>250</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Private constructor of a token sequence.</pre></td>
+    <td align="left" class="src "><pre>     * be accessed anymore.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>251</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>45</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_sequence_t(token_stream_t&amp; stream, token_id_t start, token_id_t curr) noexcept : stream_(&amp;stream), start_(start), curr_(curr) {};</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>     */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>252</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    class input_token_iterator_t : private forward_token_iterator_t {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>253</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Returns the first token ID in the sequence.</pre></td>
+    <td align="left" class="src "><pre>        friend class token_stream_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>254</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_id_t first_id() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    public:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>255</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return start_;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        using iterator_category = std::input_iterator_tag;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>256</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>        using value_type = const token_view_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>257</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        using difference_type = std::ptrdiff_t;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>258</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Returns the last and current token ID in the sequence.</pre></td>
+    <td align="left" class="src "><pre>        using pointer = const value_type*;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>259</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>33</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_id_t curr_id() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        using reference = const value_type&amp;;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>260</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>33</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return curr_;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>261</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>        /// Obtains a forward iterator from current iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>262</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>39</pre></td>
+    <td align="left" class="src coveredLine"><pre>        forward_token_iterator_t look_ahead() const noexcept { return static_cast&lt;forward_token_iterator_t>(*this); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>263</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Returns an iterator to the first token ID of the sequence.</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>264</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_id_iterator_t begin() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Dereference iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>265</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return { start_ };</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        reference operator*() const noexcept { return forward_token_iterator_t::operator*(); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>266</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>267</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Dereference iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>268</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    /// Returns an iterator to the last (non-inclusive) token ID of the sequence.</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="left" class="src coveredLine"><pre>        pointer operator->() const noexcept { return static_cast&lt;pointer>(this); }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>269</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9</pre></td>
-    <td align="left" class="src coveredLine"><pre>    token_id_iterator_t end() const noexcept {</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>270</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>9</pre></td>
-    <td align="left" class="src coveredLine"><pre>        return { curr_ + 1 };</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>271</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>         * @brief Pre-increment iterator.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>272</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>273</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_stream_t* stream_;    //!&lt; The associated token stream.</pre></td>
+    <td align="left" class="src "><pre>         * This may trigger that token_stream_t consumes from its istream.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>274</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_id_t start_;          //!&lt; The ID of the first token of the sequence.</pre></td>
+    <td align="left" class="src "><pre>         * All token_view_t and iterators to a previous token get invalidated.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>275</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    token_id_t curr_;           //!&lt; The ID of the current (and last) token of the sequence.</pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>276</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>};</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
+    <td align="left" class="src coveredLine"><pre>        input_token_iterator_t&amp; operator++() noexcept { id_ = stream_->get_remove_token(id_+1); return *this; }</pre></td>
     </tr>
 
     <tr>
@@ -2242,11 +2242,256 @@
     <td align="right" class="lineno"><pre>278</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>279</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @brief Post-increment iterator.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>280</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>281</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>282</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note All token_view_t and iterators to a previous token get invalidated.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>283</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @warning The returned iterator is invalid.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>284</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>285</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        input_token_iterator_t operator++(int) noexcept { input_token_iterator_t retval = *this; ++(*this); return retval;}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>286</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>287</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /**</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>288</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @brief Increment iterator by a certain amount.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>289</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         *</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>290</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @param incr The amount in which the iterator is incremented.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>291</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note This may trigger that token_stream_t consumes from its istream.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>292</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         * @note All token_view_t and iterators to a previous token get invalidated.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>293</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>         */</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>294</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        input_token_iterator_t&amp; operator+=(std::size_t incr) noexcept { id_ = stream_->get_remove_token(id_+incr); return *this; }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>295</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>296</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>297</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend bool operator==(const input_token_iterator_t&amp; self, const eof_token_t&amp;) noexcept { return self->is_end(); }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>298</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>299</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>300</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend bool operator==(const eof_token_t&amp;, const input_token_iterator_t&amp; self) noexcept { return self->is_end(); }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>301</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>302</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>303</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend bool operator!=(const input_token_iterator_t&amp; self, const eof_token_t&amp;) noexcept { return !self->is_end(); }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>304</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>305</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        /// Heterogeneous comparison, returns whether self represents end of tokens.</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>306</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        friend bool operator!=(const eof_token_t&amp;, const input_token_iterator_t&amp; self) noexcept { return !self->is_end(); }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>307</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>308</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    private:</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>309</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>33</pre></td>
+    <td align="left" class="src coveredLine"><pre>        input_token_iterator_t(token_stream_t&amp; stream, std::size_t id) noexcept : forward_token_iterator_t(stream, id) {};</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>310</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    };</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>311</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>312</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>313</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>314</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>#endif // INCLUDE_GUARD__TOKEN_STREAM_H__GUID_58400c2d0a5b481c8ecbf531a1ab968b</pre></td>

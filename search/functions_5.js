@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['token_5fsequence_5ft_23',['token_sequence_t',['../classtoken__sequence__t.html#a8b5f73571b42733d5e4a0b2498681d32',1,'token_sequence_t']]],
-  ['token_5fstream_5ft_24',['token_stream_t',['../classtoken__stream__t.html#a64f4983adff7cc73dbaa801a630aaa0e',1,'token_stream_t']]]
+  ['operator_20bool',['operator bool',['../structcore_1_1match__t.html#a091a849cec45850aa4f67ef85258f722',1,'core::match_t::operator bool()'],['../classcore_1_1token__stream__t.html#a0f7f1e830687d75504d5d0f767f935dd',1,'core::token_stream_t::operator bool()']]],
+  ['operator_2a',['operator*',['../classcore_1_1forward__token__iterator__t.html#a65d8ccf9652b804c5bdc08f0d1467974',1,'core::forward_token_iterator_t::operator*()'],['../classcore_1_1input__token__iterator__t.html#a54cc7d2492cd676866edbcc3dcad8e85',1,'core::input_token_iterator_t::operator*()']]],
+  ['operator_2b_2b',['operator++',['../classcore_1_1forward__token__iterator__t.html#af5bdb7af1c8b2161cd935ed421f8449d',1,'core::forward_token_iterator_t::operator++() noexcept'],['../classcore_1_1forward__token__iterator__t.html#a6464d31b7d2f668596dec91648888d6b',1,'core::forward_token_iterator_t::operator++(int) noexcept'],['../classcore_1_1input__token__iterator__t.html#a3622069cf5d05c0bf63c9c0691d895a8',1,'core::input_token_iterator_t::operator++() noexcept'],['../classcore_1_1input__token__iterator__t.html#a27e421aca21db6ce188ce282f4b90303',1,'core::input_token_iterator_t::operator++(int) noexcept']]],
+  ['operator_2b_3d',['operator+=',['../classcore_1_1forward__token__iterator__t.html#aafda38e928dc9fbbe27c36cc94fd93c2',1,'core::forward_token_iterator_t::operator+=()'],['../classcore_1_1input__token__iterator__t.html#ab7655d490a5f23ad5384ddc1276b5bef',1,'core::input_token_iterator_t::operator+=()']]],
+  ['operator_2d_3e',['operator-&gt;',['../classcore_1_1forward__token__iterator__t.html#af79ff0b74fe1df184860b5eb0a2a8267',1,'core::forward_token_iterator_t::operator-&gt;()'],['../classcore_1_1input__token__iterator__t.html#a6c57ef87869a61482294c7cb78ee9aaf',1,'core::input_token_iterator_t::operator-&gt;()']]]
 ];
