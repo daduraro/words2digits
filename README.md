@@ -50,12 +50,19 @@ Those are textual representation of cardinal numbers up to the millions. However
 
 ## How to build
 
+First, update the project dependencies included as git submodules:
+```sh
+git submodule init
+git submodule update
+```
+
 To build, use the typical CMake workflow
 
 ```sh
 mkdir build && cd build
 cmake ..
 # ninja, make, ...
+cmake --build -C Debug --target all .
 ```
 
 The following cache variables are added
@@ -69,17 +76,7 @@ W2D_COVERAGE    OFF         whether to instrument unittest for coverage, only
                             affects when compiling with gcc (requires gcov)
 ```
 
-For the tests, this project uses [GTest](https://github.com/google/googletest), which is present as a Git submodule. Just invoke
-```sh
-git submodule init
-git submodule update extern/googletest
-```
-
-Note that depending on the `CMakeCache.txt` configuration, it may be needed that GTest is forced to be dynamically linked with the C/C++ runtimes. This can be controlled by the `gtest_force_shared_crt` cache variable, either by invoking
-```sh
-cmake .. -Dgtest_force_shared_crt=ON
-```
-or modifying the generated `CMakeCache.txt` file directly.
+For the tests, this project uses [GTest](https://github.com/google/googletest), which is present as a Git submodule.
 
 To execute, just invoke `words2digits` with either an input file or using the standard in. Under `samples/` there is the following example
 
@@ -132,11 +129,6 @@ Left associative greediness produce some effect:
 ## Program architecture
 
 The program is split into two main components, a tokenizer and a grammar parser. As the parsed grammar is an LL(k) grammar, a straight-forward recursive descent parser has been implemented. This means that, at a high level, this parser only requires that, given a specific token, which is the next token in the stream.
-
-As some of the text must be replaced when processed, the tokenizer performs three basic roles:
-- Splits the input text into tokens of different categories (text, spaces and other).
-- Stores the processed tokens in a transient state in which they might be modified (replaced).
-- Dumps the tokens in the same order that they were read from the transient state to an output stream of characters.
 
 For more details see the code [documentation](https://daduraro.github.io/words2digits/).
 
