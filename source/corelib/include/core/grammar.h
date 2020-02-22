@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-namespace corelib {
+namespace core {
 
     /**
      * @brief A match of the cardinal numbers grammar.

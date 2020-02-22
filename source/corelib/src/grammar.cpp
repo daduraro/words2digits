@@ -1,7 +1,7 @@
 #include "core/grammar.h"
 
 namespace {
-    using namespace corelib;
+    using namespace core;
 
     /**
      * Matches the rule:
@@ -239,7 +239,7 @@ namespace {
     }
 }
 
-namespace corelib {
+namespace core {
     match_t match_cardinal_number(token_sequence_t seq) noexcept
     {
         // CardNum -> 'zero' | Millions | AValue

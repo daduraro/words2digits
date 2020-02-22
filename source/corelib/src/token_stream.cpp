@@ -10,7 +10,7 @@
 #include <iterator>
 
 namespace {
-    using namespace corelib;
+    using namespace core;
     token_class_e classify_char(char c, const std::locale& loc) noexcept {
         if (std::isspace(c, loc)) return token_class_e::space;
         if (std::isalpha(c, loc)) return token_class_e::alpha;
@@ -18,7 +18,7 @@ namespace {
     }
 }
 
-namespace corelib {
+namespace core {
 
     token_stream_t::token_stream_t(std::istream& is) noexcept : is_(&is), first_(0) {
         (*is_) >> std::noskipws;

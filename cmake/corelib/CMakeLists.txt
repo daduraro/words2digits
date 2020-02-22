@@ -18,10 +18,9 @@ set(CORELIB_SOURCES
 # tests
 package_add_test(${CORELIB_TEST_DIR}/test_token_stream.cpp)
 package_add_test(${CORELIB_TEST_DIR}/test_grammar.cpp)
-package_add_test(${CORELIB_TEST_DIR}/test_run.cpp)
 
 # doc
-package_add_doc(${CORELIB_DIRS})
+package_add_doc(${CORELIB_DIR})
 
 add_library(corelib STATIC ${CORELIB_SOURCES})
 

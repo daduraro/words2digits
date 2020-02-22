@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 
-using namespace corelib;
+using namespace core;
 
 struct test_token_stream : ::testing::Test {};
 

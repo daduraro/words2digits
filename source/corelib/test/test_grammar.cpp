@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <utility>
 
-using namespace corelib;
+using namespace core;
 
 using test_arg = std::pair<std::string, std::uint64_t>;
 

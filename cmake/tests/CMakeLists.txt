@@ -41,7 +41,7 @@ PUBLIC
     $<BUILD_INTERFACE:${TEST_INCLUDE_DIR}>
 )
 
-target_link_libraries(unittest PRIVATE corelib gtest gmock gtest_main)
+target_link_libraries(unittest PRIVATE cli corelib gtest gmock gtest_main)
 
 # include(GoogleTest)
 # gtest_discover_tests(unittest)

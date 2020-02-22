@@ -3,7 +3,7 @@
 
 #include <iosfwd>
 
-namespace corelib {
+namespace core {
 
     /**
      * @brief Replace each occurrance of a textual number in `is` to digits and output
@@ -13,11 +13,6 @@ namespace corelib {
      * @param os Output stream where resulting text will be written to.
      */
     void convert(std::istream& is, std::ostream& os) noexcept;
-
-    /**
-     * @brief Main body of the CLI, parses command arguments and invokes convert().
-     */
-    int run(int argc, char const* const* argv, std::istream& in, std::ostream& out, std::ostream& err) noexcept;
 
 }
 

@@ -1,13 +1,12 @@
 #include "unittest.h"
 
-#include "core/digitize.h"
+#include "run.h"
 
 #include <sstream>
 #include <fstream>
 #include <cstdio>
 #include <array>
-
-using namespace corelib;
+#include <cstdlib>
 
 struct test_run : ::testing::Test {};
 
@@ -29,7 +28,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 4>{ "exe", "--help", fname, "asdfr"};
         auto code = run((int)arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_FALSE(out.str().empty());
     }
@@ -39,7 +38,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 4>{ "exe", "--help", "--force", "--"};
         auto code = run((int)arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_FALSE(out.str().empty());
     }
@@ -49,7 +48,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 4>{ "exe", "-h", "-f", "--"};
         auto code = run((int)arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_FALSE(out.str().empty());
     }
@@ -59,7 +58,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 4>{ "exe", "-h", "--", "-e"};
         auto code = run((int)arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_FALSE(out.str().empty());
     }
@@ -69,7 +68,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 5>{ "exe", "arg0", "arg1", "arg2", "arg3"};
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 1);
+        ASSERT_EQ(code, EXIT_FAILURE);
         ASSERT_FALSE(err.str().empty());
         ASSERT_TRUE(out.str().empty());
     }
@@ -79,7 +78,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 4>{ "exe", "-e", "arg1", "arg2" };
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 1);
+        ASSERT_EQ(code, EXIT_FAILURE);
         ASSERT_FALSE(err.str().empty());
         ASSERT_TRUE(out.str().empty());
     }
@@ -89,7 +88,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 2>{ "exe", fname };
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 1);
+        ASSERT_EQ(code, EXIT_FAILURE);
         ASSERT_FALSE(err.str().empty());
         ASSERT_TRUE(out.str().empty());
     }
@@ -103,7 +102,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 2>{ "exe", fname };
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_EQ(out.str(), "");
     }
@@ -116,7 +115,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 2>{ "exe", fname };
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 0);
+        ASSERT_EQ(code, EXIT_SUCCESS);
         ASSERT_TRUE(err.str().empty());
         ASSERT_EQ(out.str(), "random token 42");
     }
@@ -128,7 +127,7 @@ TEST(test_run, conformance)
         std::stringstream out, err;
         auto arr = std::array<const char*, 3>{ "exe", fname, fname_out };
         auto code = run((int) arr.size(), arr.data(), in, out, err);
-        ASSERT_EQ(code, 1);
+        ASSERT_EQ(code, EXIT_FAILURE);
         ASSERT_FALSE(err.str().empty());
         ASSERT_TRUE(out.str().empty());
     }
