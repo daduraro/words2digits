@@ -3,6 +3,8 @@
 
 #include "token_stream.h"
 
+#include "absl/types/optional.h"
+
 #include <cstdint>
 
 namespace corelib {
@@ -11,16 +13,14 @@ namespace corelib {
      * @brief A match of the cardinal numbers grammar.
      *
      * A match is composed both by a token sequence (i.e. which tokens produced a match)
-     * and the corresponding parsed value. A match might be invalid, in such case
-     * its members must not be accessed.
+     * and the corresponding parsed value.
      */
-    struct match_t { // TODO implement optional<T> to better encapsulate the semantics of match_t
+    struct match_result_t {
         token_sequence_t seq;   //!< Token sequence of the match.
         std::uint64_t num;      //!< Parsed number of the match.
-
-        /// Returns if the match is valid.
-        explicit operator bool() const noexcept { return static_cast<bool>(seq); }
     };
+
+    using match_t = absl::optional<match_result_t>;
 
     /**
      * @brief Returns if there is a textual number at current token of `seq`.
@@ -52,7 +52,7 @@ namespace corelib {
     *
     * @param seq The token sequence from which the algorithm will try
     *            to match from its current token.
-    * @returns An invalid match_t if no match occurred, a valid match_t otherwise.
+    * @returns nullopt no match occurred, a match_t otherwise.
     */
     match_t match_cardinal_number(token_sequence_t seq) noexcept;
 

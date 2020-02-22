@@ -35,7 +35,7 @@ PUBLIC
     $<BUILD_INTERFACE:${CORELIB_INCLUDE_DIR}>
 )
 
-#target_link_libraries(corelib PUBLIC absl::base absl::strings)
+target_link_libraries(corelib PUBLIC absl::base)
 
 # add more C++ conformance in MSVC builds
 if (MSVC)

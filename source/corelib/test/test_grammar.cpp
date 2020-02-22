@@ -21,10 +21,10 @@ TEST_P(test_grammar, conformance)
 
     auto match = match_cardinal_number(stream.new_sequence());
     ASSERT_TRUE(match);
-    ASSERT_EQ(match.num, param.second);
+    ASSERT_EQ(match->num, param.second);
 
     std::stringstream out;
-    stream.commit(match.seq, out);
+    stream.commit(match->seq, out);
     ASSERT_TRUE(stream.empty());
 }
 

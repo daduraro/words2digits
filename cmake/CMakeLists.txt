@@ -19,7 +19,7 @@ macro(package_add_doc)
     set(DOC_SOURCES ${DOC_SOURCES} PARENT_SCOPE) # this is the actual TEST_SOURCES, only if just 1 scope deeper (function/subdirectories scope)
 endmacro()
 
-#add_subdirectory("${EXTERN_DIR}/abseil" "extern/abseil-cpp" EXCLUDE_FROM_ALL)
+add_subdirectory("${EXTERN_DIR}/abseil" "extern/abseil-cpp" EXCLUDE_FROM_ALL)
 add_subdirectory(corelib)
 add_subdirectory(cli)
 

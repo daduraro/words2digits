@@ -105,8 +105,8 @@ namespace corelib {
             token_sequence_t seq = stream.new_sequence();
             auto m = match_cardinal_number(seq);
             if (m) {
-                stream.replace(m.seq, std::to_string(m.num));
-                stream.commit(m.seq, os);
+                stream.replace(m->seq, std::to_string(m->num));
+                stream.commit(m->seq, os);
             }
             else {
                 stream.commit(seq, os);

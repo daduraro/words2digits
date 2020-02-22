@@ -2,7 +2,6 @@
 #define INCLUDE_GUARD__TOKEN_STREAM_H__GUID_58400c2d0a5b481c8ecbf531a1ab968b
 
 #include <iosfwd>
-#include <cassert>
 #include <vector>
 #include <string>
 #include <iterator>
@@ -185,16 +184,6 @@ namespace corelib {
     class token_sequence_t {
         friend class token_stream_t;
     public:
-        // TODO once optional is implemented, remove default constructor and operator bool
-
-        /// Constructs an invalid token sequence.
-        token_sequence_t() noexcept : stream_(nullptr), start_(), curr_() {};
-
-        /// Checks if the token sequence is valid.
-        explicit operator bool() const noexcept {
-            return stream_ != nullptr;
-        }
-
         // default copy/move constructors/assignment as token_sequence_t
         // has value type semantics (it is a lightweight view type)
         token_sequence_t(const token_sequence_t& other) = default;
@@ -204,7 +193,6 @@ namespace corelib {
 
         /// Access to the normalized text of the current token.
         const std::string& curr() const noexcept {
-            assert(*this);
             return stream_->token(curr_);
         }
 
